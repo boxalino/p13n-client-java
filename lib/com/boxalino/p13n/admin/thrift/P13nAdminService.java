@@ -36,13 +36,81 @@ public class P13nAdminService {
 
   public interface Iface {
 
+    /**
+     * <dl>
+     * <dt>@param xmlPayload</dt>
+     * <dd>the XML to upload as raw data</dd>
+     * 
+     * <dt>@return</dt>
+     * <dd>binary data</dd>
+     * 
+     * <dt>@throws P13nServiceException</dt>
+     * <dd>an exception containing an error message</dd>
+     * </dl>
+     * 
+     * @param xmlPayload
+     */
     public ByteBuffer uploadChoiceConfiguration(ByteBuffer xmlPayload) throws P13nServiceException, org.apache.thrift.TException;
 
+    /**
+     * <dl>
+     * <dt>@param profilePropertyValues</dt>
+     * <dd>the list of ProfilePropertyValue objects to save</dd>
+     * 
+     * <dt>@return</dt>
+     * <dd>an integer</dd>
+     * 
+     * <dt>@throws P13nServiceException</dt>
+     * <dd>an exception containing an error message</dd>
+     * </dl>
+     * 
+     * @param profilePropertyValues
+     */
     public int saveProfileProperties(List<ProfilePropertyValue> profilePropertyValues) throws P13nServiceException, org.apache.thrift.TException;
 
+    /**
+     * <dl>
+     * <dt>@param profilePropertyValues</dt>
+     * <dd>the list of ProfilePropertyValue objects to save</dd>
+     * 
+     * <dt>@return</dt>
+     * <dd>an integer</dd>
+     * 
+     * <dt>@throws P13nServiceException</dt>
+     * <dd>an exception containing an error message</dd>
+     * </dl>
+     * 
+     * @param profilePropertyValues
+     */
     public int replaceProfileProperties(List<ProfilePropertyValue> profilePropertyValues) throws P13nServiceException, org.apache.thrift.TException;
 
+    /**
+     * <dl>
+     * <dt>@param command</dt>
+     * <dd>the command to execute</dd>
+     * 
+     * <dt>@return</dt>
+     * <dd>a string containing the result of the command</dd>
+     * 
+     * <dt>@throws P13nServiceException</dt>
+     * <dd>an exception containing an error message</dd>
+     * </dl>
+     * 
+     * @param command
+     */
     public String command(String command) throws P13nServiceException, org.apache.thrift.TException;
+
+    public Choice retrieveChoice(String id) throws P13nServiceException, org.apache.thrift.TException;
+
+    public Scenario retrieveScenario(String id) throws P13nServiceException, org.apache.thrift.TException;
+
+    public RecommendationVariant retrieveRecommendationVariant(String id) throws P13nServiceException, org.apache.thrift.TException;
+
+    public String persistChoice(Choice choice) throws P13nServiceException, org.apache.thrift.TException;
+
+    public String persistScenario(Scenario scenario) throws P13nServiceException, org.apache.thrift.TException;
+
+    public String persistRecommendationVariant(RecommendationVariant recommendationVariant) throws P13nServiceException, org.apache.thrift.TException;
 
   }
 
@@ -55,6 +123,18 @@ public class P13nAdminService {
     public void replaceProfileProperties(List<ProfilePropertyValue> profilePropertyValues, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
 
     public void command(String command, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
+
+    public void retrieveChoice(String id, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
+
+    public void retrieveScenario(String id, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
+
+    public void retrieveRecommendationVariant(String id, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
+
+    public void persistChoice(Choice choice, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
+
+    public void persistScenario(Scenario scenario, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
+
+    public void persistRecommendationVariant(RecommendationVariant recommendationVariant, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
 
   }
 
@@ -180,6 +260,162 @@ public class P13nAdminService {
         throw result.p13nServiceException;
       }
       throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "command failed: unknown result");
+    }
+
+    public Choice retrieveChoice(String id) throws P13nServiceException, org.apache.thrift.TException
+    {
+      send_retrieveChoice(id);
+      return recv_retrieveChoice();
+    }
+
+    public void send_retrieveChoice(String id) throws org.apache.thrift.TException
+    {
+      retrieveChoice_args args = new retrieveChoice_args();
+      args.setId(id);
+      sendBase("retrieveChoice", args);
+    }
+
+    public Choice recv_retrieveChoice() throws P13nServiceException, org.apache.thrift.TException
+    {
+      retrieveChoice_result result = new retrieveChoice_result();
+      receiveBase(result, "retrieveChoice");
+      if (result.isSetSuccess()) {
+        return result.success;
+      }
+      if (result.p13nServiceException != null) {
+        throw result.p13nServiceException;
+      }
+      throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "retrieveChoice failed: unknown result");
+    }
+
+    public Scenario retrieveScenario(String id) throws P13nServiceException, org.apache.thrift.TException
+    {
+      send_retrieveScenario(id);
+      return recv_retrieveScenario();
+    }
+
+    public void send_retrieveScenario(String id) throws org.apache.thrift.TException
+    {
+      retrieveScenario_args args = new retrieveScenario_args();
+      args.setId(id);
+      sendBase("retrieveScenario", args);
+    }
+
+    public Scenario recv_retrieveScenario() throws P13nServiceException, org.apache.thrift.TException
+    {
+      retrieveScenario_result result = new retrieveScenario_result();
+      receiveBase(result, "retrieveScenario");
+      if (result.isSetSuccess()) {
+        return result.success;
+      }
+      if (result.p13nServiceException != null) {
+        throw result.p13nServiceException;
+      }
+      throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "retrieveScenario failed: unknown result");
+    }
+
+    public RecommendationVariant retrieveRecommendationVariant(String id) throws P13nServiceException, org.apache.thrift.TException
+    {
+      send_retrieveRecommendationVariant(id);
+      return recv_retrieveRecommendationVariant();
+    }
+
+    public void send_retrieveRecommendationVariant(String id) throws org.apache.thrift.TException
+    {
+      retrieveRecommendationVariant_args args = new retrieveRecommendationVariant_args();
+      args.setId(id);
+      sendBase("retrieveRecommendationVariant", args);
+    }
+
+    public RecommendationVariant recv_retrieveRecommendationVariant() throws P13nServiceException, org.apache.thrift.TException
+    {
+      retrieveRecommendationVariant_result result = new retrieveRecommendationVariant_result();
+      receiveBase(result, "retrieveRecommendationVariant");
+      if (result.isSetSuccess()) {
+        return result.success;
+      }
+      if (result.p13nServiceException != null) {
+        throw result.p13nServiceException;
+      }
+      throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "retrieveRecommendationVariant failed: unknown result");
+    }
+
+    public String persistChoice(Choice choice) throws P13nServiceException, org.apache.thrift.TException
+    {
+      send_persistChoice(choice);
+      return recv_persistChoice();
+    }
+
+    public void send_persistChoice(Choice choice) throws org.apache.thrift.TException
+    {
+      persistChoice_args args = new persistChoice_args();
+      args.setChoice(choice);
+      sendBase("persistChoice", args);
+    }
+
+    public String recv_persistChoice() throws P13nServiceException, org.apache.thrift.TException
+    {
+      persistChoice_result result = new persistChoice_result();
+      receiveBase(result, "persistChoice");
+      if (result.isSetSuccess()) {
+        return result.success;
+      }
+      if (result.p13nServiceException != null) {
+        throw result.p13nServiceException;
+      }
+      throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "persistChoice failed: unknown result");
+    }
+
+    public String persistScenario(Scenario scenario) throws P13nServiceException, org.apache.thrift.TException
+    {
+      send_persistScenario(scenario);
+      return recv_persistScenario();
+    }
+
+    public void send_persistScenario(Scenario scenario) throws org.apache.thrift.TException
+    {
+      persistScenario_args args = new persistScenario_args();
+      args.setScenario(scenario);
+      sendBase("persistScenario", args);
+    }
+
+    public String recv_persistScenario() throws P13nServiceException, org.apache.thrift.TException
+    {
+      persistScenario_result result = new persistScenario_result();
+      receiveBase(result, "persistScenario");
+      if (result.isSetSuccess()) {
+        return result.success;
+      }
+      if (result.p13nServiceException != null) {
+        throw result.p13nServiceException;
+      }
+      throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "persistScenario failed: unknown result");
+    }
+
+    public String persistRecommendationVariant(RecommendationVariant recommendationVariant) throws P13nServiceException, org.apache.thrift.TException
+    {
+      send_persistRecommendationVariant(recommendationVariant);
+      return recv_persistRecommendationVariant();
+    }
+
+    public void send_persistRecommendationVariant(RecommendationVariant recommendationVariant) throws org.apache.thrift.TException
+    {
+      persistRecommendationVariant_args args = new persistRecommendationVariant_args();
+      args.setRecommendationVariant(recommendationVariant);
+      sendBase("persistRecommendationVariant", args);
+    }
+
+    public String recv_persistRecommendationVariant() throws P13nServiceException, org.apache.thrift.TException
+    {
+      persistRecommendationVariant_result result = new persistRecommendationVariant_result();
+      receiveBase(result, "persistRecommendationVariant");
+      if (result.isSetSuccess()) {
+        return result.success;
+      }
+      if (result.p13nServiceException != null) {
+        throw result.p13nServiceException;
+      }
+      throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "persistRecommendationVariant failed: unknown result");
     }
 
   }
@@ -328,6 +564,198 @@ public class P13nAdminService {
       }
     }
 
+    public void retrieveChoice(String id, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
+      checkReady();
+      retrieveChoice_call method_call = new retrieveChoice_call(id, resultHandler, this, ___protocolFactory, ___transport);
+      this.___currentMethod = method_call;
+      ___manager.call(method_call);
+    }
+
+    public static class retrieveChoice_call extends org.apache.thrift.async.TAsyncMethodCall {
+      private String id;
+      public retrieveChoice_call(String id, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+        super(client, protocolFactory, transport, resultHandler, false);
+        this.id = id;
+      }
+
+      public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
+        prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("retrieveChoice", org.apache.thrift.protocol.TMessageType.CALL, 0));
+        retrieveChoice_args args = new retrieveChoice_args();
+        args.setId(id);
+        args.write(prot);
+        prot.writeMessageEnd();
+      }
+
+      public Choice getResult() throws P13nServiceException, org.apache.thrift.TException {
+        if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
+          throw new IllegalStateException("Method call not finished!");
+        }
+        org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
+        org.apache.thrift.protocol.TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
+        return (new Client(prot)).recv_retrieveChoice();
+      }
+    }
+
+    public void retrieveScenario(String id, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
+      checkReady();
+      retrieveScenario_call method_call = new retrieveScenario_call(id, resultHandler, this, ___protocolFactory, ___transport);
+      this.___currentMethod = method_call;
+      ___manager.call(method_call);
+    }
+
+    public static class retrieveScenario_call extends org.apache.thrift.async.TAsyncMethodCall {
+      private String id;
+      public retrieveScenario_call(String id, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+        super(client, protocolFactory, transport, resultHandler, false);
+        this.id = id;
+      }
+
+      public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
+        prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("retrieveScenario", org.apache.thrift.protocol.TMessageType.CALL, 0));
+        retrieveScenario_args args = new retrieveScenario_args();
+        args.setId(id);
+        args.write(prot);
+        prot.writeMessageEnd();
+      }
+
+      public Scenario getResult() throws P13nServiceException, org.apache.thrift.TException {
+        if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
+          throw new IllegalStateException("Method call not finished!");
+        }
+        org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
+        org.apache.thrift.protocol.TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
+        return (new Client(prot)).recv_retrieveScenario();
+      }
+    }
+
+    public void retrieveRecommendationVariant(String id, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
+      checkReady();
+      retrieveRecommendationVariant_call method_call = new retrieveRecommendationVariant_call(id, resultHandler, this, ___protocolFactory, ___transport);
+      this.___currentMethod = method_call;
+      ___manager.call(method_call);
+    }
+
+    public static class retrieveRecommendationVariant_call extends org.apache.thrift.async.TAsyncMethodCall {
+      private String id;
+      public retrieveRecommendationVariant_call(String id, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+        super(client, protocolFactory, transport, resultHandler, false);
+        this.id = id;
+      }
+
+      public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
+        prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("retrieveRecommendationVariant", org.apache.thrift.protocol.TMessageType.CALL, 0));
+        retrieveRecommendationVariant_args args = new retrieveRecommendationVariant_args();
+        args.setId(id);
+        args.write(prot);
+        prot.writeMessageEnd();
+      }
+
+      public RecommendationVariant getResult() throws P13nServiceException, org.apache.thrift.TException {
+        if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
+          throw new IllegalStateException("Method call not finished!");
+        }
+        org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
+        org.apache.thrift.protocol.TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
+        return (new Client(prot)).recv_retrieveRecommendationVariant();
+      }
+    }
+
+    public void persistChoice(Choice choice, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
+      checkReady();
+      persistChoice_call method_call = new persistChoice_call(choice, resultHandler, this, ___protocolFactory, ___transport);
+      this.___currentMethod = method_call;
+      ___manager.call(method_call);
+    }
+
+    public static class persistChoice_call extends org.apache.thrift.async.TAsyncMethodCall {
+      private Choice choice;
+      public persistChoice_call(Choice choice, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+        super(client, protocolFactory, transport, resultHandler, false);
+        this.choice = choice;
+      }
+
+      public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
+        prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("persistChoice", org.apache.thrift.protocol.TMessageType.CALL, 0));
+        persistChoice_args args = new persistChoice_args();
+        args.setChoice(choice);
+        args.write(prot);
+        prot.writeMessageEnd();
+      }
+
+      public String getResult() throws P13nServiceException, org.apache.thrift.TException {
+        if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
+          throw new IllegalStateException("Method call not finished!");
+        }
+        org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
+        org.apache.thrift.protocol.TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
+        return (new Client(prot)).recv_persistChoice();
+      }
+    }
+
+    public void persistScenario(Scenario scenario, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
+      checkReady();
+      persistScenario_call method_call = new persistScenario_call(scenario, resultHandler, this, ___protocolFactory, ___transport);
+      this.___currentMethod = method_call;
+      ___manager.call(method_call);
+    }
+
+    public static class persistScenario_call extends org.apache.thrift.async.TAsyncMethodCall {
+      private Scenario scenario;
+      public persistScenario_call(Scenario scenario, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+        super(client, protocolFactory, transport, resultHandler, false);
+        this.scenario = scenario;
+      }
+
+      public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
+        prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("persistScenario", org.apache.thrift.protocol.TMessageType.CALL, 0));
+        persistScenario_args args = new persistScenario_args();
+        args.setScenario(scenario);
+        args.write(prot);
+        prot.writeMessageEnd();
+      }
+
+      public String getResult() throws P13nServiceException, org.apache.thrift.TException {
+        if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
+          throw new IllegalStateException("Method call not finished!");
+        }
+        org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
+        org.apache.thrift.protocol.TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
+        return (new Client(prot)).recv_persistScenario();
+      }
+    }
+
+    public void persistRecommendationVariant(RecommendationVariant recommendationVariant, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
+      checkReady();
+      persistRecommendationVariant_call method_call = new persistRecommendationVariant_call(recommendationVariant, resultHandler, this, ___protocolFactory, ___transport);
+      this.___currentMethod = method_call;
+      ___manager.call(method_call);
+    }
+
+    public static class persistRecommendationVariant_call extends org.apache.thrift.async.TAsyncMethodCall {
+      private RecommendationVariant recommendationVariant;
+      public persistRecommendationVariant_call(RecommendationVariant recommendationVariant, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+        super(client, protocolFactory, transport, resultHandler, false);
+        this.recommendationVariant = recommendationVariant;
+      }
+
+      public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
+        prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("persistRecommendationVariant", org.apache.thrift.protocol.TMessageType.CALL, 0));
+        persistRecommendationVariant_args args = new persistRecommendationVariant_args();
+        args.setRecommendationVariant(recommendationVariant);
+        args.write(prot);
+        prot.writeMessageEnd();
+      }
+
+      public String getResult() throws P13nServiceException, org.apache.thrift.TException {
+        if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
+          throw new IllegalStateException("Method call not finished!");
+        }
+        org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
+        org.apache.thrift.protocol.TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
+        return (new Client(prot)).recv_persistRecommendationVariant();
+      }
+    }
+
   }
 
   public static class Processor<I extends Iface> extends org.apache.thrift.TBaseProcessor<I> implements org.apache.thrift.TProcessor {
@@ -345,6 +773,12 @@ public class P13nAdminService {
       processMap.put("saveProfileProperties", new saveProfileProperties());
       processMap.put("replaceProfileProperties", new replaceProfileProperties());
       processMap.put("command", new command());
+      processMap.put("retrieveChoice", new retrieveChoice());
+      processMap.put("retrieveScenario", new retrieveScenario());
+      processMap.put("retrieveRecommendationVariant", new retrieveRecommendationVariant());
+      processMap.put("persistChoice", new persistChoice());
+      processMap.put("persistScenario", new persistScenario());
+      processMap.put("persistRecommendationVariant", new persistRecommendationVariant());
       return processMap;
     }
 
@@ -446,6 +880,150 @@ public class P13nAdminService {
       }
     }
 
+    public static class retrieveChoice<I extends Iface> extends org.apache.thrift.ProcessFunction<I, retrieveChoice_args> {
+      public retrieveChoice() {
+        super("retrieveChoice");
+      }
+
+      public retrieveChoice_args getEmptyArgsInstance() {
+        return new retrieveChoice_args();
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      public retrieveChoice_result getResult(I iface, retrieveChoice_args args) throws org.apache.thrift.TException {
+        retrieveChoice_result result = new retrieveChoice_result();
+        try {
+          result.success = iface.retrieveChoice(args.id);
+        } catch (P13nServiceException p13nServiceException) {
+          result.p13nServiceException = p13nServiceException;
+        }
+        return result;
+      }
+    }
+
+    public static class retrieveScenario<I extends Iface> extends org.apache.thrift.ProcessFunction<I, retrieveScenario_args> {
+      public retrieveScenario() {
+        super("retrieveScenario");
+      }
+
+      public retrieveScenario_args getEmptyArgsInstance() {
+        return new retrieveScenario_args();
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      public retrieveScenario_result getResult(I iface, retrieveScenario_args args) throws org.apache.thrift.TException {
+        retrieveScenario_result result = new retrieveScenario_result();
+        try {
+          result.success = iface.retrieveScenario(args.id);
+        } catch (P13nServiceException p13nServiceException) {
+          result.p13nServiceException = p13nServiceException;
+        }
+        return result;
+      }
+    }
+
+    public static class retrieveRecommendationVariant<I extends Iface> extends org.apache.thrift.ProcessFunction<I, retrieveRecommendationVariant_args> {
+      public retrieveRecommendationVariant() {
+        super("retrieveRecommendationVariant");
+      }
+
+      public retrieveRecommendationVariant_args getEmptyArgsInstance() {
+        return new retrieveRecommendationVariant_args();
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      public retrieveRecommendationVariant_result getResult(I iface, retrieveRecommendationVariant_args args) throws org.apache.thrift.TException {
+        retrieveRecommendationVariant_result result = new retrieveRecommendationVariant_result();
+        try {
+          result.success = iface.retrieveRecommendationVariant(args.id);
+        } catch (P13nServiceException p13nServiceException) {
+          result.p13nServiceException = p13nServiceException;
+        }
+        return result;
+      }
+    }
+
+    public static class persistChoice<I extends Iface> extends org.apache.thrift.ProcessFunction<I, persistChoice_args> {
+      public persistChoice() {
+        super("persistChoice");
+      }
+
+      public persistChoice_args getEmptyArgsInstance() {
+        return new persistChoice_args();
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      public persistChoice_result getResult(I iface, persistChoice_args args) throws org.apache.thrift.TException {
+        persistChoice_result result = new persistChoice_result();
+        try {
+          result.success = iface.persistChoice(args.choice);
+        } catch (P13nServiceException p13nServiceException) {
+          result.p13nServiceException = p13nServiceException;
+        }
+        return result;
+      }
+    }
+
+    public static class persistScenario<I extends Iface> extends org.apache.thrift.ProcessFunction<I, persistScenario_args> {
+      public persistScenario() {
+        super("persistScenario");
+      }
+
+      public persistScenario_args getEmptyArgsInstance() {
+        return new persistScenario_args();
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      public persistScenario_result getResult(I iface, persistScenario_args args) throws org.apache.thrift.TException {
+        persistScenario_result result = new persistScenario_result();
+        try {
+          result.success = iface.persistScenario(args.scenario);
+        } catch (P13nServiceException p13nServiceException) {
+          result.p13nServiceException = p13nServiceException;
+        }
+        return result;
+      }
+    }
+
+    public static class persistRecommendationVariant<I extends Iface> extends org.apache.thrift.ProcessFunction<I, persistRecommendationVariant_args> {
+      public persistRecommendationVariant() {
+        super("persistRecommendationVariant");
+      }
+
+      public persistRecommendationVariant_args getEmptyArgsInstance() {
+        return new persistRecommendationVariant_args();
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      public persistRecommendationVariant_result getResult(I iface, persistRecommendationVariant_args args) throws org.apache.thrift.TException {
+        persistRecommendationVariant_result result = new persistRecommendationVariant_result();
+        try {
+          result.success = iface.persistRecommendationVariant(args.recommendationVariant);
+        } catch (P13nServiceException p13nServiceException) {
+          result.p13nServiceException = p13nServiceException;
+        }
+        return result;
+      }
+    }
+
   }
 
   public static class AsyncProcessor<I extends AsyncIface> extends org.apache.thrift.TBaseAsyncProcessor<I> {
@@ -463,6 +1041,12 @@ public class P13nAdminService {
       processMap.put("saveProfileProperties", new saveProfileProperties());
       processMap.put("replaceProfileProperties", new replaceProfileProperties());
       processMap.put("command", new command());
+      processMap.put("retrieveChoice", new retrieveChoice());
+      processMap.put("retrieveScenario", new retrieveScenario());
+      processMap.put("retrieveRecommendationVariant", new retrieveRecommendationVariant());
+      processMap.put("persistChoice", new persistChoice());
+      processMap.put("persistScenario", new persistScenario());
+      processMap.put("persistRecommendationVariant", new persistRecommendationVariant());
       return processMap;
     }
 
@@ -693,6 +1277,348 @@ public class P13nAdminService {
 
       public void start(I iface, command_args args, org.apache.thrift.async.AsyncMethodCallback<String> resultHandler) throws TException {
         iface.command(args.command,resultHandler);
+      }
+    }
+
+    public static class retrieveChoice<I extends AsyncIface> extends org.apache.thrift.AsyncProcessFunction<I, retrieveChoice_args, Choice> {
+      public retrieveChoice() {
+        super("retrieveChoice");
+      }
+
+      public retrieveChoice_args getEmptyArgsInstance() {
+        return new retrieveChoice_args();
+      }
+
+      public AsyncMethodCallback<Choice> getResultHandler(final AsyncFrameBuffer fb, final int seqid) {
+        final org.apache.thrift.AsyncProcessFunction fcall = this;
+        return new AsyncMethodCallback<Choice>() { 
+          public void onComplete(Choice o) {
+            retrieveChoice_result result = new retrieveChoice_result();
+            result.success = o;
+            try {
+              fcall.sendResponse(fb,result, org.apache.thrift.protocol.TMessageType.REPLY,seqid);
+              return;
+            } catch (Exception e) {
+              LOGGER.error("Exception writing to internal frame buffer", e);
+            }
+            fb.close();
+          }
+          public void onError(Exception e) {
+            byte msgType = org.apache.thrift.protocol.TMessageType.REPLY;
+            org.apache.thrift.TBase msg;
+            retrieveChoice_result result = new retrieveChoice_result();
+            if (e instanceof P13nServiceException) {
+                        result.p13nServiceException = (P13nServiceException) e;
+                        result.setP13nServiceExceptionIsSet(true);
+                        msg = result;
+            }
+             else 
+            {
+              msgType = org.apache.thrift.protocol.TMessageType.EXCEPTION;
+              msg = (org.apache.thrift.TBase)new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.INTERNAL_ERROR, e.getMessage());
+            }
+            try {
+              fcall.sendResponse(fb,msg,msgType,seqid);
+              return;
+            } catch (Exception ex) {
+              LOGGER.error("Exception writing to internal frame buffer", ex);
+            }
+            fb.close();
+          }
+        };
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      public void start(I iface, retrieveChoice_args args, org.apache.thrift.async.AsyncMethodCallback<Choice> resultHandler) throws TException {
+        iface.retrieveChoice(args.id,resultHandler);
+      }
+    }
+
+    public static class retrieveScenario<I extends AsyncIface> extends org.apache.thrift.AsyncProcessFunction<I, retrieveScenario_args, Scenario> {
+      public retrieveScenario() {
+        super("retrieveScenario");
+      }
+
+      public retrieveScenario_args getEmptyArgsInstance() {
+        return new retrieveScenario_args();
+      }
+
+      public AsyncMethodCallback<Scenario> getResultHandler(final AsyncFrameBuffer fb, final int seqid) {
+        final org.apache.thrift.AsyncProcessFunction fcall = this;
+        return new AsyncMethodCallback<Scenario>() { 
+          public void onComplete(Scenario o) {
+            retrieveScenario_result result = new retrieveScenario_result();
+            result.success = o;
+            try {
+              fcall.sendResponse(fb,result, org.apache.thrift.protocol.TMessageType.REPLY,seqid);
+              return;
+            } catch (Exception e) {
+              LOGGER.error("Exception writing to internal frame buffer", e);
+            }
+            fb.close();
+          }
+          public void onError(Exception e) {
+            byte msgType = org.apache.thrift.protocol.TMessageType.REPLY;
+            org.apache.thrift.TBase msg;
+            retrieveScenario_result result = new retrieveScenario_result();
+            if (e instanceof P13nServiceException) {
+                        result.p13nServiceException = (P13nServiceException) e;
+                        result.setP13nServiceExceptionIsSet(true);
+                        msg = result;
+            }
+             else 
+            {
+              msgType = org.apache.thrift.protocol.TMessageType.EXCEPTION;
+              msg = (org.apache.thrift.TBase)new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.INTERNAL_ERROR, e.getMessage());
+            }
+            try {
+              fcall.sendResponse(fb,msg,msgType,seqid);
+              return;
+            } catch (Exception ex) {
+              LOGGER.error("Exception writing to internal frame buffer", ex);
+            }
+            fb.close();
+          }
+        };
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      public void start(I iface, retrieveScenario_args args, org.apache.thrift.async.AsyncMethodCallback<Scenario> resultHandler) throws TException {
+        iface.retrieveScenario(args.id,resultHandler);
+      }
+    }
+
+    public static class retrieveRecommendationVariant<I extends AsyncIface> extends org.apache.thrift.AsyncProcessFunction<I, retrieveRecommendationVariant_args, RecommendationVariant> {
+      public retrieveRecommendationVariant() {
+        super("retrieveRecommendationVariant");
+      }
+
+      public retrieveRecommendationVariant_args getEmptyArgsInstance() {
+        return new retrieveRecommendationVariant_args();
+      }
+
+      public AsyncMethodCallback<RecommendationVariant> getResultHandler(final AsyncFrameBuffer fb, final int seqid) {
+        final org.apache.thrift.AsyncProcessFunction fcall = this;
+        return new AsyncMethodCallback<RecommendationVariant>() { 
+          public void onComplete(RecommendationVariant o) {
+            retrieveRecommendationVariant_result result = new retrieveRecommendationVariant_result();
+            result.success = o;
+            try {
+              fcall.sendResponse(fb,result, org.apache.thrift.protocol.TMessageType.REPLY,seqid);
+              return;
+            } catch (Exception e) {
+              LOGGER.error("Exception writing to internal frame buffer", e);
+            }
+            fb.close();
+          }
+          public void onError(Exception e) {
+            byte msgType = org.apache.thrift.protocol.TMessageType.REPLY;
+            org.apache.thrift.TBase msg;
+            retrieveRecommendationVariant_result result = new retrieveRecommendationVariant_result();
+            if (e instanceof P13nServiceException) {
+                        result.p13nServiceException = (P13nServiceException) e;
+                        result.setP13nServiceExceptionIsSet(true);
+                        msg = result;
+            }
+             else 
+            {
+              msgType = org.apache.thrift.protocol.TMessageType.EXCEPTION;
+              msg = (org.apache.thrift.TBase)new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.INTERNAL_ERROR, e.getMessage());
+            }
+            try {
+              fcall.sendResponse(fb,msg,msgType,seqid);
+              return;
+            } catch (Exception ex) {
+              LOGGER.error("Exception writing to internal frame buffer", ex);
+            }
+            fb.close();
+          }
+        };
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      public void start(I iface, retrieveRecommendationVariant_args args, org.apache.thrift.async.AsyncMethodCallback<RecommendationVariant> resultHandler) throws TException {
+        iface.retrieveRecommendationVariant(args.id,resultHandler);
+      }
+    }
+
+    public static class persistChoice<I extends AsyncIface> extends org.apache.thrift.AsyncProcessFunction<I, persistChoice_args, String> {
+      public persistChoice() {
+        super("persistChoice");
+      }
+
+      public persistChoice_args getEmptyArgsInstance() {
+        return new persistChoice_args();
+      }
+
+      public AsyncMethodCallback<String> getResultHandler(final AsyncFrameBuffer fb, final int seqid) {
+        final org.apache.thrift.AsyncProcessFunction fcall = this;
+        return new AsyncMethodCallback<String>() { 
+          public void onComplete(String o) {
+            persistChoice_result result = new persistChoice_result();
+            result.success = o;
+            try {
+              fcall.sendResponse(fb,result, org.apache.thrift.protocol.TMessageType.REPLY,seqid);
+              return;
+            } catch (Exception e) {
+              LOGGER.error("Exception writing to internal frame buffer", e);
+            }
+            fb.close();
+          }
+          public void onError(Exception e) {
+            byte msgType = org.apache.thrift.protocol.TMessageType.REPLY;
+            org.apache.thrift.TBase msg;
+            persistChoice_result result = new persistChoice_result();
+            if (e instanceof P13nServiceException) {
+                        result.p13nServiceException = (P13nServiceException) e;
+                        result.setP13nServiceExceptionIsSet(true);
+                        msg = result;
+            }
+             else 
+            {
+              msgType = org.apache.thrift.protocol.TMessageType.EXCEPTION;
+              msg = (org.apache.thrift.TBase)new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.INTERNAL_ERROR, e.getMessage());
+            }
+            try {
+              fcall.sendResponse(fb,msg,msgType,seqid);
+              return;
+            } catch (Exception ex) {
+              LOGGER.error("Exception writing to internal frame buffer", ex);
+            }
+            fb.close();
+          }
+        };
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      public void start(I iface, persistChoice_args args, org.apache.thrift.async.AsyncMethodCallback<String> resultHandler) throws TException {
+        iface.persistChoice(args.choice,resultHandler);
+      }
+    }
+
+    public static class persistScenario<I extends AsyncIface> extends org.apache.thrift.AsyncProcessFunction<I, persistScenario_args, String> {
+      public persistScenario() {
+        super("persistScenario");
+      }
+
+      public persistScenario_args getEmptyArgsInstance() {
+        return new persistScenario_args();
+      }
+
+      public AsyncMethodCallback<String> getResultHandler(final AsyncFrameBuffer fb, final int seqid) {
+        final org.apache.thrift.AsyncProcessFunction fcall = this;
+        return new AsyncMethodCallback<String>() { 
+          public void onComplete(String o) {
+            persistScenario_result result = new persistScenario_result();
+            result.success = o;
+            try {
+              fcall.sendResponse(fb,result, org.apache.thrift.protocol.TMessageType.REPLY,seqid);
+              return;
+            } catch (Exception e) {
+              LOGGER.error("Exception writing to internal frame buffer", e);
+            }
+            fb.close();
+          }
+          public void onError(Exception e) {
+            byte msgType = org.apache.thrift.protocol.TMessageType.REPLY;
+            org.apache.thrift.TBase msg;
+            persistScenario_result result = new persistScenario_result();
+            if (e instanceof P13nServiceException) {
+                        result.p13nServiceException = (P13nServiceException) e;
+                        result.setP13nServiceExceptionIsSet(true);
+                        msg = result;
+            }
+             else 
+            {
+              msgType = org.apache.thrift.protocol.TMessageType.EXCEPTION;
+              msg = (org.apache.thrift.TBase)new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.INTERNAL_ERROR, e.getMessage());
+            }
+            try {
+              fcall.sendResponse(fb,msg,msgType,seqid);
+              return;
+            } catch (Exception ex) {
+              LOGGER.error("Exception writing to internal frame buffer", ex);
+            }
+            fb.close();
+          }
+        };
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      public void start(I iface, persistScenario_args args, org.apache.thrift.async.AsyncMethodCallback<String> resultHandler) throws TException {
+        iface.persistScenario(args.scenario,resultHandler);
+      }
+    }
+
+    public static class persistRecommendationVariant<I extends AsyncIface> extends org.apache.thrift.AsyncProcessFunction<I, persistRecommendationVariant_args, String> {
+      public persistRecommendationVariant() {
+        super("persistRecommendationVariant");
+      }
+
+      public persistRecommendationVariant_args getEmptyArgsInstance() {
+        return new persistRecommendationVariant_args();
+      }
+
+      public AsyncMethodCallback<String> getResultHandler(final AsyncFrameBuffer fb, final int seqid) {
+        final org.apache.thrift.AsyncProcessFunction fcall = this;
+        return new AsyncMethodCallback<String>() { 
+          public void onComplete(String o) {
+            persistRecommendationVariant_result result = new persistRecommendationVariant_result();
+            result.success = o;
+            try {
+              fcall.sendResponse(fb,result, org.apache.thrift.protocol.TMessageType.REPLY,seqid);
+              return;
+            } catch (Exception e) {
+              LOGGER.error("Exception writing to internal frame buffer", e);
+            }
+            fb.close();
+          }
+          public void onError(Exception e) {
+            byte msgType = org.apache.thrift.protocol.TMessageType.REPLY;
+            org.apache.thrift.TBase msg;
+            persistRecommendationVariant_result result = new persistRecommendationVariant_result();
+            if (e instanceof P13nServiceException) {
+                        result.p13nServiceException = (P13nServiceException) e;
+                        result.setP13nServiceExceptionIsSet(true);
+                        msg = result;
+            }
+             else 
+            {
+              msgType = org.apache.thrift.protocol.TMessageType.EXCEPTION;
+              msg = (org.apache.thrift.TBase)new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.INTERNAL_ERROR, e.getMessage());
+            }
+            try {
+              fcall.sendResponse(fb,msg,msgType,seqid);
+              return;
+            } catch (Exception ex) {
+              LOGGER.error("Exception writing to internal frame buffer", ex);
+            }
+            fb.close();
+          }
+        };
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      public void start(I iface, persistRecommendationVariant_args args, org.apache.thrift.async.AsyncMethodCallback<String> resultHandler) throws TException {
+        iface.persistRecommendationVariant(args.recommendationVariant,resultHandler);
       }
     }
 
@@ -1839,14 +2765,14 @@ public class P13nAdminService {
             case -1: // PROFILE_PROPERTY_VALUES
               if (schemeField.type == org.apache.thrift.protocol.TType.LIST) {
                 {
-                  org.apache.thrift.protocol.TList _list0 = iprot.readListBegin();
-                  struct.profilePropertyValues = new ArrayList<ProfilePropertyValue>(_list0.size);
-                  for (int _i1 = 0; _i1 < _list0.size; ++_i1)
+                  org.apache.thrift.protocol.TList _list38 = iprot.readListBegin();
+                  struct.profilePropertyValues = new ArrayList<ProfilePropertyValue>(_list38.size);
+                  for (int _i39 = 0; _i39 < _list38.size; ++_i39)
                   {
-                    ProfilePropertyValue _elem2;
-                    _elem2 = new ProfilePropertyValue();
-                    _elem2.read(iprot);
-                    struct.profilePropertyValues.add(_elem2);
+                    ProfilePropertyValue _elem40;
+                    _elem40 = new ProfilePropertyValue();
+                    _elem40.read(iprot);
+                    struct.profilePropertyValues.add(_elem40);
                   }
                   iprot.readListEnd();
                 }
@@ -1874,9 +2800,9 @@ public class P13nAdminService {
           oprot.writeFieldBegin(PROFILE_PROPERTY_VALUES_FIELD_DESC);
           {
             oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, struct.profilePropertyValues.size()));
-            for (ProfilePropertyValue _iter3 : struct.profilePropertyValues)
+            for (ProfilePropertyValue _iter41 : struct.profilePropertyValues)
             {
-              _iter3.write(oprot);
+              _iter41.write(oprot);
             }
             oprot.writeListEnd();
           }
@@ -1907,9 +2833,9 @@ public class P13nAdminService {
         if (struct.isSetProfilePropertyValues()) {
           {
             oprot.writeI32(struct.profilePropertyValues.size());
-            for (ProfilePropertyValue _iter4 : struct.profilePropertyValues)
+            for (ProfilePropertyValue _iter42 : struct.profilePropertyValues)
             {
-              _iter4.write(oprot);
+              _iter42.write(oprot);
             }
           }
         }
@@ -1921,14 +2847,14 @@ public class P13nAdminService {
         BitSet incoming = iprot.readBitSet(1);
         if (incoming.get(0)) {
           {
-            org.apache.thrift.protocol.TList _list5 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, iprot.readI32());
-            struct.profilePropertyValues = new ArrayList<ProfilePropertyValue>(_list5.size);
-            for (int _i6 = 0; _i6 < _list5.size; ++_i6)
+            org.apache.thrift.protocol.TList _list43 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, iprot.readI32());
+            struct.profilePropertyValues = new ArrayList<ProfilePropertyValue>(_list43.size);
+            for (int _i44 = 0; _i44 < _list43.size; ++_i44)
             {
-              ProfilePropertyValue _elem7;
-              _elem7 = new ProfilePropertyValue();
-              _elem7.read(iprot);
-              struct.profilePropertyValues.add(_elem7);
+              ProfilePropertyValue _elem45;
+              _elem45 = new ProfilePropertyValue();
+              _elem45.read(iprot);
+              struct.profilePropertyValues.add(_elem45);
             }
           }
           struct.setProfilePropertyValuesIsSet(true);
@@ -2703,14 +3629,14 @@ public class P13nAdminService {
             case -1: // PROFILE_PROPERTY_VALUES
               if (schemeField.type == org.apache.thrift.protocol.TType.LIST) {
                 {
-                  org.apache.thrift.protocol.TList _list8 = iprot.readListBegin();
-                  struct.profilePropertyValues = new ArrayList<ProfilePropertyValue>(_list8.size);
-                  for (int _i9 = 0; _i9 < _list8.size; ++_i9)
+                  org.apache.thrift.protocol.TList _list46 = iprot.readListBegin();
+                  struct.profilePropertyValues = new ArrayList<ProfilePropertyValue>(_list46.size);
+                  for (int _i47 = 0; _i47 < _list46.size; ++_i47)
                   {
-                    ProfilePropertyValue _elem10;
-                    _elem10 = new ProfilePropertyValue();
-                    _elem10.read(iprot);
-                    struct.profilePropertyValues.add(_elem10);
+                    ProfilePropertyValue _elem48;
+                    _elem48 = new ProfilePropertyValue();
+                    _elem48.read(iprot);
+                    struct.profilePropertyValues.add(_elem48);
                   }
                   iprot.readListEnd();
                 }
@@ -2738,9 +3664,9 @@ public class P13nAdminService {
           oprot.writeFieldBegin(PROFILE_PROPERTY_VALUES_FIELD_DESC);
           {
             oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, struct.profilePropertyValues.size()));
-            for (ProfilePropertyValue _iter11 : struct.profilePropertyValues)
+            for (ProfilePropertyValue _iter49 : struct.profilePropertyValues)
             {
-              _iter11.write(oprot);
+              _iter49.write(oprot);
             }
             oprot.writeListEnd();
           }
@@ -2771,9 +3697,9 @@ public class P13nAdminService {
         if (struct.isSetProfilePropertyValues()) {
           {
             oprot.writeI32(struct.profilePropertyValues.size());
-            for (ProfilePropertyValue _iter12 : struct.profilePropertyValues)
+            for (ProfilePropertyValue _iter50 : struct.profilePropertyValues)
             {
-              _iter12.write(oprot);
+              _iter50.write(oprot);
             }
           }
         }
@@ -2785,14 +3711,14 @@ public class P13nAdminService {
         BitSet incoming = iprot.readBitSet(1);
         if (incoming.get(0)) {
           {
-            org.apache.thrift.protocol.TList _list13 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, iprot.readI32());
-            struct.profilePropertyValues = new ArrayList<ProfilePropertyValue>(_list13.size);
-            for (int _i14 = 0; _i14 < _list13.size; ++_i14)
+            org.apache.thrift.protocol.TList _list51 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, iprot.readI32());
+            struct.profilePropertyValues = new ArrayList<ProfilePropertyValue>(_list51.size);
+            for (int _i52 = 0; _i52 < _list51.size; ++_i52)
             {
-              ProfilePropertyValue _elem15;
-              _elem15 = new ProfilePropertyValue();
-              _elem15.read(iprot);
-              struct.profilePropertyValues.add(_elem15);
+              ProfilePropertyValue _elem53;
+              _elem53 = new ProfilePropertyValue();
+              _elem53.read(iprot);
+              struct.profilePropertyValues.add(_elem53);
             }
           }
           struct.setProfilePropertyValuesIsSet(true);
@@ -4052,6 +4978,4896 @@ public class P13nAdminService {
 
       @Override
       public void read(org.apache.thrift.protocol.TProtocol prot, command_result struct) throws org.apache.thrift.TException {
+        TTupleProtocol iprot = (TTupleProtocol) prot;
+        BitSet incoming = iprot.readBitSet(2);
+        if (incoming.get(0)) {
+          struct.success = iprot.readString();
+          struct.setSuccessIsSet(true);
+        }
+        if (incoming.get(1)) {
+          struct.p13nServiceException = new P13nServiceException();
+          struct.p13nServiceException.read(iprot);
+          struct.setP13nServiceExceptionIsSet(true);
+        }
+      }
+    }
+
+  }
+
+  public static class retrieveChoice_args implements org.apache.thrift.TBase<retrieveChoice_args, retrieveChoice_args._Fields>, java.io.Serializable, Cloneable, Comparable<retrieveChoice_args>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("retrieveChoice_args");
+
+    private static final org.apache.thrift.protocol.TField ID_FIELD_DESC = new org.apache.thrift.protocol.TField("id", org.apache.thrift.protocol.TType.STRING, (short)-1);
+
+    private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
+    static {
+      schemes.put(StandardScheme.class, new retrieveChoice_argsStandardSchemeFactory());
+      schemes.put(TupleScheme.class, new retrieveChoice_argsTupleSchemeFactory());
+    }
+
+    public String id; // required
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+      ID((short)-1, "id");
+
+      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+
+      static {
+        for (_Fields field : EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case -1: // ID
+            return ID;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final String _fieldName;
+
+      _Fields(short thriftId, String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.ID, new org.apache.thrift.meta_data.FieldMetaData("id", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+      metaDataMap = Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(retrieveChoice_args.class, metaDataMap);
+    }
+
+    public retrieveChoice_args() {
+    }
+
+    public retrieveChoice_args(
+      String id)
+    {
+      this();
+      this.id = id;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public retrieveChoice_args(retrieveChoice_args other) {
+      if (other.isSetId()) {
+        this.id = other.id;
+      }
+    }
+
+    public retrieveChoice_args deepCopy() {
+      return new retrieveChoice_args(this);
+    }
+
+    @Override
+    public void clear() {
+      this.id = null;
+    }
+
+    public String getId() {
+      return this.id;
+    }
+
+    public retrieveChoice_args setId(String id) {
+      this.id = id;
+      return this;
+    }
+
+    public void unsetId() {
+      this.id = null;
+    }
+
+    /** Returns true if field id is set (has been assigned a value) and false otherwise */
+    public boolean isSetId() {
+      return this.id != null;
+    }
+
+    public void setIdIsSet(boolean value) {
+      if (!value) {
+        this.id = null;
+      }
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+      switch (field) {
+      case ID:
+        if (value == null) {
+          unsetId();
+        } else {
+          setId((String)value);
+        }
+        break;
+
+      }
+    }
+
+    public Object getFieldValue(_Fields field) {
+      switch (field) {
+      case ID:
+        return getId();
+
+      }
+      throw new IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new IllegalArgumentException();
+      }
+
+      switch (field) {
+      case ID:
+        return isSetId();
+      }
+      throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof retrieveChoice_args)
+        return this.equals((retrieveChoice_args)that);
+      return false;
+    }
+
+    public boolean equals(retrieveChoice_args that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_id = true && this.isSetId();
+      boolean that_present_id = true && that.isSetId();
+      if (this_present_id || that_present_id) {
+        if (!(this_present_id && that_present_id))
+          return false;
+        if (!this.id.equals(that.id))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    @Override
+    public int compareTo(retrieveChoice_args other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      lastComparison = Boolean.valueOf(isSetId()).compareTo(other.isSetId());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetId()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.id, other.id);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
+    }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("retrieveChoice_args(");
+      boolean first = true;
+
+      sb.append("id:");
+      if (this.id == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.id);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+      try {
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class retrieveChoice_argsStandardSchemeFactory implements SchemeFactory {
+      public retrieveChoice_argsStandardScheme getScheme() {
+        return new retrieveChoice_argsStandardScheme();
+      }
+    }
+
+    private static class retrieveChoice_argsStandardScheme extends StandardScheme<retrieveChoice_args> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, retrieveChoice_args struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            case -1: // ID
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+                struct.id = iprot.readString();
+                struct.setIdIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, retrieveChoice_args struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        if (struct.id != null) {
+          oprot.writeFieldBegin(ID_FIELD_DESC);
+          oprot.writeString(struct.id);
+          oprot.writeFieldEnd();
+        }
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class retrieveChoice_argsTupleSchemeFactory implements SchemeFactory {
+      public retrieveChoice_argsTupleScheme getScheme() {
+        return new retrieveChoice_argsTupleScheme();
+      }
+    }
+
+    private static class retrieveChoice_argsTupleScheme extends TupleScheme<retrieveChoice_args> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, retrieveChoice_args struct) throws org.apache.thrift.TException {
+        TTupleProtocol oprot = (TTupleProtocol) prot;
+        BitSet optionals = new BitSet();
+        if (struct.isSetId()) {
+          optionals.set(0);
+        }
+        oprot.writeBitSet(optionals, 1);
+        if (struct.isSetId()) {
+          oprot.writeString(struct.id);
+        }
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, retrieveChoice_args struct) throws org.apache.thrift.TException {
+        TTupleProtocol iprot = (TTupleProtocol) prot;
+        BitSet incoming = iprot.readBitSet(1);
+        if (incoming.get(0)) {
+          struct.id = iprot.readString();
+          struct.setIdIsSet(true);
+        }
+      }
+    }
+
+  }
+
+  public static class retrieveChoice_result implements org.apache.thrift.TBase<retrieveChoice_result, retrieveChoice_result._Fields>, java.io.Serializable, Cloneable, Comparable<retrieveChoice_result>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("retrieveChoice_result");
+
+    private static final org.apache.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.thrift.protocol.TField("success", org.apache.thrift.protocol.TType.STRUCT, (short)0);
+    private static final org.apache.thrift.protocol.TField P13N_SERVICE_EXCEPTION_FIELD_DESC = new org.apache.thrift.protocol.TField("p13nServiceException", org.apache.thrift.protocol.TType.STRUCT, (short)1);
+
+    private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
+    static {
+      schemes.put(StandardScheme.class, new retrieveChoice_resultStandardSchemeFactory());
+      schemes.put(TupleScheme.class, new retrieveChoice_resultTupleSchemeFactory());
+    }
+
+    public Choice success; // required
+    public P13nServiceException p13nServiceException; // required
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+      SUCCESS((short)0, "success"),
+      P13N_SERVICE_EXCEPTION((short)1, "p13nServiceException");
+
+      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+
+      static {
+        for (_Fields field : EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 0: // SUCCESS
+            return SUCCESS;
+          case 1: // P13N_SERVICE_EXCEPTION
+            return P13N_SERVICE_EXCEPTION;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final String _fieldName;
+
+      _Fields(short thriftId, String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.SUCCESS, new org.apache.thrift.meta_data.FieldMetaData("success", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, Choice.class)));
+      tmpMap.put(_Fields.P13N_SERVICE_EXCEPTION, new org.apache.thrift.meta_data.FieldMetaData("p13nServiceException", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRUCT)));
+      metaDataMap = Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(retrieveChoice_result.class, metaDataMap);
+    }
+
+    public retrieveChoice_result() {
+    }
+
+    public retrieveChoice_result(
+      Choice success,
+      P13nServiceException p13nServiceException)
+    {
+      this();
+      this.success = success;
+      this.p13nServiceException = p13nServiceException;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public retrieveChoice_result(retrieveChoice_result other) {
+      if (other.isSetSuccess()) {
+        this.success = new Choice(other.success);
+      }
+      if (other.isSetP13nServiceException()) {
+        this.p13nServiceException = new P13nServiceException(other.p13nServiceException);
+      }
+    }
+
+    public retrieveChoice_result deepCopy() {
+      return new retrieveChoice_result(this);
+    }
+
+    @Override
+    public void clear() {
+      this.success = null;
+      this.p13nServiceException = null;
+    }
+
+    public Choice getSuccess() {
+      return this.success;
+    }
+
+    public retrieveChoice_result setSuccess(Choice success) {
+      this.success = success;
+      return this;
+    }
+
+    public void unsetSuccess() {
+      this.success = null;
+    }
+
+    /** Returns true if field success is set (has been assigned a value) and false otherwise */
+    public boolean isSetSuccess() {
+      return this.success != null;
+    }
+
+    public void setSuccessIsSet(boolean value) {
+      if (!value) {
+        this.success = null;
+      }
+    }
+
+    public P13nServiceException getP13nServiceException() {
+      return this.p13nServiceException;
+    }
+
+    public retrieveChoice_result setP13nServiceException(P13nServiceException p13nServiceException) {
+      this.p13nServiceException = p13nServiceException;
+      return this;
+    }
+
+    public void unsetP13nServiceException() {
+      this.p13nServiceException = null;
+    }
+
+    /** Returns true if field p13nServiceException is set (has been assigned a value) and false otherwise */
+    public boolean isSetP13nServiceException() {
+      return this.p13nServiceException != null;
+    }
+
+    public void setP13nServiceExceptionIsSet(boolean value) {
+      if (!value) {
+        this.p13nServiceException = null;
+      }
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+      switch (field) {
+      case SUCCESS:
+        if (value == null) {
+          unsetSuccess();
+        } else {
+          setSuccess((Choice)value);
+        }
+        break;
+
+      case P13N_SERVICE_EXCEPTION:
+        if (value == null) {
+          unsetP13nServiceException();
+        } else {
+          setP13nServiceException((P13nServiceException)value);
+        }
+        break;
+
+      }
+    }
+
+    public Object getFieldValue(_Fields field) {
+      switch (field) {
+      case SUCCESS:
+        return getSuccess();
+
+      case P13N_SERVICE_EXCEPTION:
+        return getP13nServiceException();
+
+      }
+      throw new IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new IllegalArgumentException();
+      }
+
+      switch (field) {
+      case SUCCESS:
+        return isSetSuccess();
+      case P13N_SERVICE_EXCEPTION:
+        return isSetP13nServiceException();
+      }
+      throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof retrieveChoice_result)
+        return this.equals((retrieveChoice_result)that);
+      return false;
+    }
+
+    public boolean equals(retrieveChoice_result that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_success = true && this.isSetSuccess();
+      boolean that_present_success = true && that.isSetSuccess();
+      if (this_present_success || that_present_success) {
+        if (!(this_present_success && that_present_success))
+          return false;
+        if (!this.success.equals(that.success))
+          return false;
+      }
+
+      boolean this_present_p13nServiceException = true && this.isSetP13nServiceException();
+      boolean that_present_p13nServiceException = true && that.isSetP13nServiceException();
+      if (this_present_p13nServiceException || that_present_p13nServiceException) {
+        if (!(this_present_p13nServiceException && that_present_p13nServiceException))
+          return false;
+        if (!this.p13nServiceException.equals(that.p13nServiceException))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    @Override
+    public int compareTo(retrieveChoice_result other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      lastComparison = Boolean.valueOf(isSetSuccess()).compareTo(other.isSetSuccess());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetSuccess()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.success, other.success);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      lastComparison = Boolean.valueOf(isSetP13nServiceException()).compareTo(other.isSetP13nServiceException());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetP13nServiceException()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.p13nServiceException, other.p13nServiceException);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
+      }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("retrieveChoice_result(");
+      boolean first = true;
+
+      sb.append("success:");
+      if (this.success == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.success);
+      }
+      first = false;
+      if (!first) sb.append(", ");
+      sb.append("p13nServiceException:");
+      if (this.p13nServiceException == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.p13nServiceException);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+      if (success != null) {
+        success.validate();
+      }
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+      try {
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class retrieveChoice_resultStandardSchemeFactory implements SchemeFactory {
+      public retrieveChoice_resultStandardScheme getScheme() {
+        return new retrieveChoice_resultStandardScheme();
+      }
+    }
+
+    private static class retrieveChoice_resultStandardScheme extends StandardScheme<retrieveChoice_result> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, retrieveChoice_result struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            case 0: // SUCCESS
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.success = new Choice();
+                struct.success.read(iprot);
+                struct.setSuccessIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            case 1: // P13N_SERVICE_EXCEPTION
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.p13nServiceException = new P13nServiceException();
+                struct.p13nServiceException.read(iprot);
+                struct.setP13nServiceExceptionIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, retrieveChoice_result struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        if (struct.success != null) {
+          oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
+          struct.success.write(oprot);
+          oprot.writeFieldEnd();
+        }
+        if (struct.p13nServiceException != null) {
+          oprot.writeFieldBegin(P13N_SERVICE_EXCEPTION_FIELD_DESC);
+          struct.p13nServiceException.write(oprot);
+          oprot.writeFieldEnd();
+        }
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class retrieveChoice_resultTupleSchemeFactory implements SchemeFactory {
+      public retrieveChoice_resultTupleScheme getScheme() {
+        return new retrieveChoice_resultTupleScheme();
+      }
+    }
+
+    private static class retrieveChoice_resultTupleScheme extends TupleScheme<retrieveChoice_result> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, retrieveChoice_result struct) throws org.apache.thrift.TException {
+        TTupleProtocol oprot = (TTupleProtocol) prot;
+        BitSet optionals = new BitSet();
+        if (struct.isSetSuccess()) {
+          optionals.set(0);
+        }
+        if (struct.isSetP13nServiceException()) {
+          optionals.set(1);
+        }
+        oprot.writeBitSet(optionals, 2);
+        if (struct.isSetSuccess()) {
+          struct.success.write(oprot);
+        }
+        if (struct.isSetP13nServiceException()) {
+          struct.p13nServiceException.write(oprot);
+        }
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, retrieveChoice_result struct) throws org.apache.thrift.TException {
+        TTupleProtocol iprot = (TTupleProtocol) prot;
+        BitSet incoming = iprot.readBitSet(2);
+        if (incoming.get(0)) {
+          struct.success = new Choice();
+          struct.success.read(iprot);
+          struct.setSuccessIsSet(true);
+        }
+        if (incoming.get(1)) {
+          struct.p13nServiceException = new P13nServiceException();
+          struct.p13nServiceException.read(iprot);
+          struct.setP13nServiceExceptionIsSet(true);
+        }
+      }
+    }
+
+  }
+
+  public static class retrieveScenario_args implements org.apache.thrift.TBase<retrieveScenario_args, retrieveScenario_args._Fields>, java.io.Serializable, Cloneable, Comparable<retrieveScenario_args>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("retrieveScenario_args");
+
+    private static final org.apache.thrift.protocol.TField ID_FIELD_DESC = new org.apache.thrift.protocol.TField("id", org.apache.thrift.protocol.TType.STRING, (short)-1);
+
+    private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
+    static {
+      schemes.put(StandardScheme.class, new retrieveScenario_argsStandardSchemeFactory());
+      schemes.put(TupleScheme.class, new retrieveScenario_argsTupleSchemeFactory());
+    }
+
+    public String id; // required
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+      ID((short)-1, "id");
+
+      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+
+      static {
+        for (_Fields field : EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case -1: // ID
+            return ID;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final String _fieldName;
+
+      _Fields(short thriftId, String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.ID, new org.apache.thrift.meta_data.FieldMetaData("id", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+      metaDataMap = Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(retrieveScenario_args.class, metaDataMap);
+    }
+
+    public retrieveScenario_args() {
+    }
+
+    public retrieveScenario_args(
+      String id)
+    {
+      this();
+      this.id = id;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public retrieveScenario_args(retrieveScenario_args other) {
+      if (other.isSetId()) {
+        this.id = other.id;
+      }
+    }
+
+    public retrieveScenario_args deepCopy() {
+      return new retrieveScenario_args(this);
+    }
+
+    @Override
+    public void clear() {
+      this.id = null;
+    }
+
+    public String getId() {
+      return this.id;
+    }
+
+    public retrieveScenario_args setId(String id) {
+      this.id = id;
+      return this;
+    }
+
+    public void unsetId() {
+      this.id = null;
+    }
+
+    /** Returns true if field id is set (has been assigned a value) and false otherwise */
+    public boolean isSetId() {
+      return this.id != null;
+    }
+
+    public void setIdIsSet(boolean value) {
+      if (!value) {
+        this.id = null;
+      }
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+      switch (field) {
+      case ID:
+        if (value == null) {
+          unsetId();
+        } else {
+          setId((String)value);
+        }
+        break;
+
+      }
+    }
+
+    public Object getFieldValue(_Fields field) {
+      switch (field) {
+      case ID:
+        return getId();
+
+      }
+      throw new IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new IllegalArgumentException();
+      }
+
+      switch (field) {
+      case ID:
+        return isSetId();
+      }
+      throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof retrieveScenario_args)
+        return this.equals((retrieveScenario_args)that);
+      return false;
+    }
+
+    public boolean equals(retrieveScenario_args that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_id = true && this.isSetId();
+      boolean that_present_id = true && that.isSetId();
+      if (this_present_id || that_present_id) {
+        if (!(this_present_id && that_present_id))
+          return false;
+        if (!this.id.equals(that.id))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    @Override
+    public int compareTo(retrieveScenario_args other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      lastComparison = Boolean.valueOf(isSetId()).compareTo(other.isSetId());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetId()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.id, other.id);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
+    }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("retrieveScenario_args(");
+      boolean first = true;
+
+      sb.append("id:");
+      if (this.id == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.id);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+      try {
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class retrieveScenario_argsStandardSchemeFactory implements SchemeFactory {
+      public retrieveScenario_argsStandardScheme getScheme() {
+        return new retrieveScenario_argsStandardScheme();
+      }
+    }
+
+    private static class retrieveScenario_argsStandardScheme extends StandardScheme<retrieveScenario_args> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, retrieveScenario_args struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            case -1: // ID
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+                struct.id = iprot.readString();
+                struct.setIdIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, retrieveScenario_args struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        if (struct.id != null) {
+          oprot.writeFieldBegin(ID_FIELD_DESC);
+          oprot.writeString(struct.id);
+          oprot.writeFieldEnd();
+        }
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class retrieveScenario_argsTupleSchemeFactory implements SchemeFactory {
+      public retrieveScenario_argsTupleScheme getScheme() {
+        return new retrieveScenario_argsTupleScheme();
+      }
+    }
+
+    private static class retrieveScenario_argsTupleScheme extends TupleScheme<retrieveScenario_args> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, retrieveScenario_args struct) throws org.apache.thrift.TException {
+        TTupleProtocol oprot = (TTupleProtocol) prot;
+        BitSet optionals = new BitSet();
+        if (struct.isSetId()) {
+          optionals.set(0);
+        }
+        oprot.writeBitSet(optionals, 1);
+        if (struct.isSetId()) {
+          oprot.writeString(struct.id);
+        }
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, retrieveScenario_args struct) throws org.apache.thrift.TException {
+        TTupleProtocol iprot = (TTupleProtocol) prot;
+        BitSet incoming = iprot.readBitSet(1);
+        if (incoming.get(0)) {
+          struct.id = iprot.readString();
+          struct.setIdIsSet(true);
+        }
+      }
+    }
+
+  }
+
+  public static class retrieveScenario_result implements org.apache.thrift.TBase<retrieveScenario_result, retrieveScenario_result._Fields>, java.io.Serializable, Cloneable, Comparable<retrieveScenario_result>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("retrieveScenario_result");
+
+    private static final org.apache.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.thrift.protocol.TField("success", org.apache.thrift.protocol.TType.STRUCT, (short)0);
+    private static final org.apache.thrift.protocol.TField P13N_SERVICE_EXCEPTION_FIELD_DESC = new org.apache.thrift.protocol.TField("p13nServiceException", org.apache.thrift.protocol.TType.STRUCT, (short)1);
+
+    private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
+    static {
+      schemes.put(StandardScheme.class, new retrieveScenario_resultStandardSchemeFactory());
+      schemes.put(TupleScheme.class, new retrieveScenario_resultTupleSchemeFactory());
+    }
+
+    public Scenario success; // required
+    public P13nServiceException p13nServiceException; // required
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+      SUCCESS((short)0, "success"),
+      P13N_SERVICE_EXCEPTION((short)1, "p13nServiceException");
+
+      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+
+      static {
+        for (_Fields field : EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 0: // SUCCESS
+            return SUCCESS;
+          case 1: // P13N_SERVICE_EXCEPTION
+            return P13N_SERVICE_EXCEPTION;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final String _fieldName;
+
+      _Fields(short thriftId, String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.SUCCESS, new org.apache.thrift.meta_data.FieldMetaData("success", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, Scenario.class)));
+      tmpMap.put(_Fields.P13N_SERVICE_EXCEPTION, new org.apache.thrift.meta_data.FieldMetaData("p13nServiceException", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRUCT)));
+      metaDataMap = Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(retrieveScenario_result.class, metaDataMap);
+    }
+
+    public retrieveScenario_result() {
+    }
+
+    public retrieveScenario_result(
+      Scenario success,
+      P13nServiceException p13nServiceException)
+    {
+      this();
+      this.success = success;
+      this.p13nServiceException = p13nServiceException;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public retrieveScenario_result(retrieveScenario_result other) {
+      if (other.isSetSuccess()) {
+        this.success = new Scenario(other.success);
+      }
+      if (other.isSetP13nServiceException()) {
+        this.p13nServiceException = new P13nServiceException(other.p13nServiceException);
+      }
+    }
+
+    public retrieveScenario_result deepCopy() {
+      return new retrieveScenario_result(this);
+    }
+
+    @Override
+    public void clear() {
+      this.success = null;
+      this.p13nServiceException = null;
+    }
+
+    public Scenario getSuccess() {
+      return this.success;
+    }
+
+    public retrieveScenario_result setSuccess(Scenario success) {
+      this.success = success;
+      return this;
+    }
+
+    public void unsetSuccess() {
+      this.success = null;
+    }
+
+    /** Returns true if field success is set (has been assigned a value) and false otherwise */
+    public boolean isSetSuccess() {
+      return this.success != null;
+    }
+
+    public void setSuccessIsSet(boolean value) {
+      if (!value) {
+        this.success = null;
+      }
+    }
+
+    public P13nServiceException getP13nServiceException() {
+      return this.p13nServiceException;
+    }
+
+    public retrieveScenario_result setP13nServiceException(P13nServiceException p13nServiceException) {
+      this.p13nServiceException = p13nServiceException;
+      return this;
+    }
+
+    public void unsetP13nServiceException() {
+      this.p13nServiceException = null;
+    }
+
+    /** Returns true if field p13nServiceException is set (has been assigned a value) and false otherwise */
+    public boolean isSetP13nServiceException() {
+      return this.p13nServiceException != null;
+    }
+
+    public void setP13nServiceExceptionIsSet(boolean value) {
+      if (!value) {
+        this.p13nServiceException = null;
+      }
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+      switch (field) {
+      case SUCCESS:
+        if (value == null) {
+          unsetSuccess();
+        } else {
+          setSuccess((Scenario)value);
+        }
+        break;
+
+      case P13N_SERVICE_EXCEPTION:
+        if (value == null) {
+          unsetP13nServiceException();
+        } else {
+          setP13nServiceException((P13nServiceException)value);
+        }
+        break;
+
+      }
+    }
+
+    public Object getFieldValue(_Fields field) {
+      switch (field) {
+      case SUCCESS:
+        return getSuccess();
+
+      case P13N_SERVICE_EXCEPTION:
+        return getP13nServiceException();
+
+      }
+      throw new IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new IllegalArgumentException();
+      }
+
+      switch (field) {
+      case SUCCESS:
+        return isSetSuccess();
+      case P13N_SERVICE_EXCEPTION:
+        return isSetP13nServiceException();
+      }
+      throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof retrieveScenario_result)
+        return this.equals((retrieveScenario_result)that);
+      return false;
+    }
+
+    public boolean equals(retrieveScenario_result that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_success = true && this.isSetSuccess();
+      boolean that_present_success = true && that.isSetSuccess();
+      if (this_present_success || that_present_success) {
+        if (!(this_present_success && that_present_success))
+          return false;
+        if (!this.success.equals(that.success))
+          return false;
+      }
+
+      boolean this_present_p13nServiceException = true && this.isSetP13nServiceException();
+      boolean that_present_p13nServiceException = true && that.isSetP13nServiceException();
+      if (this_present_p13nServiceException || that_present_p13nServiceException) {
+        if (!(this_present_p13nServiceException && that_present_p13nServiceException))
+          return false;
+        if (!this.p13nServiceException.equals(that.p13nServiceException))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    @Override
+    public int compareTo(retrieveScenario_result other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      lastComparison = Boolean.valueOf(isSetSuccess()).compareTo(other.isSetSuccess());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetSuccess()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.success, other.success);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      lastComparison = Boolean.valueOf(isSetP13nServiceException()).compareTo(other.isSetP13nServiceException());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetP13nServiceException()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.p13nServiceException, other.p13nServiceException);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
+      }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("retrieveScenario_result(");
+      boolean first = true;
+
+      sb.append("success:");
+      if (this.success == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.success);
+      }
+      first = false;
+      if (!first) sb.append(", ");
+      sb.append("p13nServiceException:");
+      if (this.p13nServiceException == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.p13nServiceException);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+      if (success != null) {
+        success.validate();
+      }
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+      try {
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class retrieveScenario_resultStandardSchemeFactory implements SchemeFactory {
+      public retrieveScenario_resultStandardScheme getScheme() {
+        return new retrieveScenario_resultStandardScheme();
+      }
+    }
+
+    private static class retrieveScenario_resultStandardScheme extends StandardScheme<retrieveScenario_result> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, retrieveScenario_result struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            case 0: // SUCCESS
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.success = new Scenario();
+                struct.success.read(iprot);
+                struct.setSuccessIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            case 1: // P13N_SERVICE_EXCEPTION
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.p13nServiceException = new P13nServiceException();
+                struct.p13nServiceException.read(iprot);
+                struct.setP13nServiceExceptionIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, retrieveScenario_result struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        if (struct.success != null) {
+          oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
+          struct.success.write(oprot);
+          oprot.writeFieldEnd();
+        }
+        if (struct.p13nServiceException != null) {
+          oprot.writeFieldBegin(P13N_SERVICE_EXCEPTION_FIELD_DESC);
+          struct.p13nServiceException.write(oprot);
+          oprot.writeFieldEnd();
+        }
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class retrieveScenario_resultTupleSchemeFactory implements SchemeFactory {
+      public retrieveScenario_resultTupleScheme getScheme() {
+        return new retrieveScenario_resultTupleScheme();
+      }
+    }
+
+    private static class retrieveScenario_resultTupleScheme extends TupleScheme<retrieveScenario_result> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, retrieveScenario_result struct) throws org.apache.thrift.TException {
+        TTupleProtocol oprot = (TTupleProtocol) prot;
+        BitSet optionals = new BitSet();
+        if (struct.isSetSuccess()) {
+          optionals.set(0);
+        }
+        if (struct.isSetP13nServiceException()) {
+          optionals.set(1);
+        }
+        oprot.writeBitSet(optionals, 2);
+        if (struct.isSetSuccess()) {
+          struct.success.write(oprot);
+        }
+        if (struct.isSetP13nServiceException()) {
+          struct.p13nServiceException.write(oprot);
+        }
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, retrieveScenario_result struct) throws org.apache.thrift.TException {
+        TTupleProtocol iprot = (TTupleProtocol) prot;
+        BitSet incoming = iprot.readBitSet(2);
+        if (incoming.get(0)) {
+          struct.success = new Scenario();
+          struct.success.read(iprot);
+          struct.setSuccessIsSet(true);
+        }
+        if (incoming.get(1)) {
+          struct.p13nServiceException = new P13nServiceException();
+          struct.p13nServiceException.read(iprot);
+          struct.setP13nServiceExceptionIsSet(true);
+        }
+      }
+    }
+
+  }
+
+  public static class retrieveRecommendationVariant_args implements org.apache.thrift.TBase<retrieveRecommendationVariant_args, retrieveRecommendationVariant_args._Fields>, java.io.Serializable, Cloneable, Comparable<retrieveRecommendationVariant_args>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("retrieveRecommendationVariant_args");
+
+    private static final org.apache.thrift.protocol.TField ID_FIELD_DESC = new org.apache.thrift.protocol.TField("id", org.apache.thrift.protocol.TType.STRING, (short)-1);
+
+    private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
+    static {
+      schemes.put(StandardScheme.class, new retrieveRecommendationVariant_argsStandardSchemeFactory());
+      schemes.put(TupleScheme.class, new retrieveRecommendationVariant_argsTupleSchemeFactory());
+    }
+
+    public String id; // required
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+      ID((short)-1, "id");
+
+      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+
+      static {
+        for (_Fields field : EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case -1: // ID
+            return ID;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final String _fieldName;
+
+      _Fields(short thriftId, String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.ID, new org.apache.thrift.meta_data.FieldMetaData("id", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+      metaDataMap = Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(retrieveRecommendationVariant_args.class, metaDataMap);
+    }
+
+    public retrieveRecommendationVariant_args() {
+    }
+
+    public retrieveRecommendationVariant_args(
+      String id)
+    {
+      this();
+      this.id = id;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public retrieveRecommendationVariant_args(retrieveRecommendationVariant_args other) {
+      if (other.isSetId()) {
+        this.id = other.id;
+      }
+    }
+
+    public retrieveRecommendationVariant_args deepCopy() {
+      return new retrieveRecommendationVariant_args(this);
+    }
+
+    @Override
+    public void clear() {
+      this.id = null;
+    }
+
+    public String getId() {
+      return this.id;
+    }
+
+    public retrieveRecommendationVariant_args setId(String id) {
+      this.id = id;
+      return this;
+    }
+
+    public void unsetId() {
+      this.id = null;
+    }
+
+    /** Returns true if field id is set (has been assigned a value) and false otherwise */
+    public boolean isSetId() {
+      return this.id != null;
+    }
+
+    public void setIdIsSet(boolean value) {
+      if (!value) {
+        this.id = null;
+      }
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+      switch (field) {
+      case ID:
+        if (value == null) {
+          unsetId();
+        } else {
+          setId((String)value);
+        }
+        break;
+
+      }
+    }
+
+    public Object getFieldValue(_Fields field) {
+      switch (field) {
+      case ID:
+        return getId();
+
+      }
+      throw new IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new IllegalArgumentException();
+      }
+
+      switch (field) {
+      case ID:
+        return isSetId();
+      }
+      throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof retrieveRecommendationVariant_args)
+        return this.equals((retrieveRecommendationVariant_args)that);
+      return false;
+    }
+
+    public boolean equals(retrieveRecommendationVariant_args that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_id = true && this.isSetId();
+      boolean that_present_id = true && that.isSetId();
+      if (this_present_id || that_present_id) {
+        if (!(this_present_id && that_present_id))
+          return false;
+        if (!this.id.equals(that.id))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    @Override
+    public int compareTo(retrieveRecommendationVariant_args other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      lastComparison = Boolean.valueOf(isSetId()).compareTo(other.isSetId());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetId()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.id, other.id);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
+    }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("retrieveRecommendationVariant_args(");
+      boolean first = true;
+
+      sb.append("id:");
+      if (this.id == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.id);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+      try {
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class retrieveRecommendationVariant_argsStandardSchemeFactory implements SchemeFactory {
+      public retrieveRecommendationVariant_argsStandardScheme getScheme() {
+        return new retrieveRecommendationVariant_argsStandardScheme();
+      }
+    }
+
+    private static class retrieveRecommendationVariant_argsStandardScheme extends StandardScheme<retrieveRecommendationVariant_args> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, retrieveRecommendationVariant_args struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            case -1: // ID
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+                struct.id = iprot.readString();
+                struct.setIdIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, retrieveRecommendationVariant_args struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        if (struct.id != null) {
+          oprot.writeFieldBegin(ID_FIELD_DESC);
+          oprot.writeString(struct.id);
+          oprot.writeFieldEnd();
+        }
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class retrieveRecommendationVariant_argsTupleSchemeFactory implements SchemeFactory {
+      public retrieveRecommendationVariant_argsTupleScheme getScheme() {
+        return new retrieveRecommendationVariant_argsTupleScheme();
+      }
+    }
+
+    private static class retrieveRecommendationVariant_argsTupleScheme extends TupleScheme<retrieveRecommendationVariant_args> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, retrieveRecommendationVariant_args struct) throws org.apache.thrift.TException {
+        TTupleProtocol oprot = (TTupleProtocol) prot;
+        BitSet optionals = new BitSet();
+        if (struct.isSetId()) {
+          optionals.set(0);
+        }
+        oprot.writeBitSet(optionals, 1);
+        if (struct.isSetId()) {
+          oprot.writeString(struct.id);
+        }
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, retrieveRecommendationVariant_args struct) throws org.apache.thrift.TException {
+        TTupleProtocol iprot = (TTupleProtocol) prot;
+        BitSet incoming = iprot.readBitSet(1);
+        if (incoming.get(0)) {
+          struct.id = iprot.readString();
+          struct.setIdIsSet(true);
+        }
+      }
+    }
+
+  }
+
+  public static class retrieveRecommendationVariant_result implements org.apache.thrift.TBase<retrieveRecommendationVariant_result, retrieveRecommendationVariant_result._Fields>, java.io.Serializable, Cloneable, Comparable<retrieveRecommendationVariant_result>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("retrieveRecommendationVariant_result");
+
+    private static final org.apache.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.thrift.protocol.TField("success", org.apache.thrift.protocol.TType.STRUCT, (short)0);
+    private static final org.apache.thrift.protocol.TField P13N_SERVICE_EXCEPTION_FIELD_DESC = new org.apache.thrift.protocol.TField("p13nServiceException", org.apache.thrift.protocol.TType.STRUCT, (short)1);
+
+    private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
+    static {
+      schemes.put(StandardScheme.class, new retrieveRecommendationVariant_resultStandardSchemeFactory());
+      schemes.put(TupleScheme.class, new retrieveRecommendationVariant_resultTupleSchemeFactory());
+    }
+
+    public RecommendationVariant success; // required
+    public P13nServiceException p13nServiceException; // required
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+      SUCCESS((short)0, "success"),
+      P13N_SERVICE_EXCEPTION((short)1, "p13nServiceException");
+
+      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+
+      static {
+        for (_Fields field : EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 0: // SUCCESS
+            return SUCCESS;
+          case 1: // P13N_SERVICE_EXCEPTION
+            return P13N_SERVICE_EXCEPTION;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final String _fieldName;
+
+      _Fields(short thriftId, String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.SUCCESS, new org.apache.thrift.meta_data.FieldMetaData("success", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, RecommendationVariant.class)));
+      tmpMap.put(_Fields.P13N_SERVICE_EXCEPTION, new org.apache.thrift.meta_data.FieldMetaData("p13nServiceException", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRUCT)));
+      metaDataMap = Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(retrieveRecommendationVariant_result.class, metaDataMap);
+    }
+
+    public retrieveRecommendationVariant_result() {
+    }
+
+    public retrieveRecommendationVariant_result(
+      RecommendationVariant success,
+      P13nServiceException p13nServiceException)
+    {
+      this();
+      this.success = success;
+      this.p13nServiceException = p13nServiceException;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public retrieveRecommendationVariant_result(retrieveRecommendationVariant_result other) {
+      if (other.isSetSuccess()) {
+        this.success = new RecommendationVariant(other.success);
+      }
+      if (other.isSetP13nServiceException()) {
+        this.p13nServiceException = new P13nServiceException(other.p13nServiceException);
+      }
+    }
+
+    public retrieveRecommendationVariant_result deepCopy() {
+      return new retrieveRecommendationVariant_result(this);
+    }
+
+    @Override
+    public void clear() {
+      this.success = null;
+      this.p13nServiceException = null;
+    }
+
+    public RecommendationVariant getSuccess() {
+      return this.success;
+    }
+
+    public retrieveRecommendationVariant_result setSuccess(RecommendationVariant success) {
+      this.success = success;
+      return this;
+    }
+
+    public void unsetSuccess() {
+      this.success = null;
+    }
+
+    /** Returns true if field success is set (has been assigned a value) and false otherwise */
+    public boolean isSetSuccess() {
+      return this.success != null;
+    }
+
+    public void setSuccessIsSet(boolean value) {
+      if (!value) {
+        this.success = null;
+      }
+    }
+
+    public P13nServiceException getP13nServiceException() {
+      return this.p13nServiceException;
+    }
+
+    public retrieveRecommendationVariant_result setP13nServiceException(P13nServiceException p13nServiceException) {
+      this.p13nServiceException = p13nServiceException;
+      return this;
+    }
+
+    public void unsetP13nServiceException() {
+      this.p13nServiceException = null;
+    }
+
+    /** Returns true if field p13nServiceException is set (has been assigned a value) and false otherwise */
+    public boolean isSetP13nServiceException() {
+      return this.p13nServiceException != null;
+    }
+
+    public void setP13nServiceExceptionIsSet(boolean value) {
+      if (!value) {
+        this.p13nServiceException = null;
+      }
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+      switch (field) {
+      case SUCCESS:
+        if (value == null) {
+          unsetSuccess();
+        } else {
+          setSuccess((RecommendationVariant)value);
+        }
+        break;
+
+      case P13N_SERVICE_EXCEPTION:
+        if (value == null) {
+          unsetP13nServiceException();
+        } else {
+          setP13nServiceException((P13nServiceException)value);
+        }
+        break;
+
+      }
+    }
+
+    public Object getFieldValue(_Fields field) {
+      switch (field) {
+      case SUCCESS:
+        return getSuccess();
+
+      case P13N_SERVICE_EXCEPTION:
+        return getP13nServiceException();
+
+      }
+      throw new IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new IllegalArgumentException();
+      }
+
+      switch (field) {
+      case SUCCESS:
+        return isSetSuccess();
+      case P13N_SERVICE_EXCEPTION:
+        return isSetP13nServiceException();
+      }
+      throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof retrieveRecommendationVariant_result)
+        return this.equals((retrieveRecommendationVariant_result)that);
+      return false;
+    }
+
+    public boolean equals(retrieveRecommendationVariant_result that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_success = true && this.isSetSuccess();
+      boolean that_present_success = true && that.isSetSuccess();
+      if (this_present_success || that_present_success) {
+        if (!(this_present_success && that_present_success))
+          return false;
+        if (!this.success.equals(that.success))
+          return false;
+      }
+
+      boolean this_present_p13nServiceException = true && this.isSetP13nServiceException();
+      boolean that_present_p13nServiceException = true && that.isSetP13nServiceException();
+      if (this_present_p13nServiceException || that_present_p13nServiceException) {
+        if (!(this_present_p13nServiceException && that_present_p13nServiceException))
+          return false;
+        if (!this.p13nServiceException.equals(that.p13nServiceException))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    @Override
+    public int compareTo(retrieveRecommendationVariant_result other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      lastComparison = Boolean.valueOf(isSetSuccess()).compareTo(other.isSetSuccess());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetSuccess()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.success, other.success);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      lastComparison = Boolean.valueOf(isSetP13nServiceException()).compareTo(other.isSetP13nServiceException());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetP13nServiceException()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.p13nServiceException, other.p13nServiceException);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
+      }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("retrieveRecommendationVariant_result(");
+      boolean first = true;
+
+      sb.append("success:");
+      if (this.success == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.success);
+      }
+      first = false;
+      if (!first) sb.append(", ");
+      sb.append("p13nServiceException:");
+      if (this.p13nServiceException == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.p13nServiceException);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+      if (success != null) {
+        success.validate();
+      }
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+      try {
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class retrieveRecommendationVariant_resultStandardSchemeFactory implements SchemeFactory {
+      public retrieveRecommendationVariant_resultStandardScheme getScheme() {
+        return new retrieveRecommendationVariant_resultStandardScheme();
+      }
+    }
+
+    private static class retrieveRecommendationVariant_resultStandardScheme extends StandardScheme<retrieveRecommendationVariant_result> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, retrieveRecommendationVariant_result struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            case 0: // SUCCESS
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.success = new RecommendationVariant();
+                struct.success.read(iprot);
+                struct.setSuccessIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            case 1: // P13N_SERVICE_EXCEPTION
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.p13nServiceException = new P13nServiceException();
+                struct.p13nServiceException.read(iprot);
+                struct.setP13nServiceExceptionIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, retrieveRecommendationVariant_result struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        if (struct.success != null) {
+          oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
+          struct.success.write(oprot);
+          oprot.writeFieldEnd();
+        }
+        if (struct.p13nServiceException != null) {
+          oprot.writeFieldBegin(P13N_SERVICE_EXCEPTION_FIELD_DESC);
+          struct.p13nServiceException.write(oprot);
+          oprot.writeFieldEnd();
+        }
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class retrieveRecommendationVariant_resultTupleSchemeFactory implements SchemeFactory {
+      public retrieveRecommendationVariant_resultTupleScheme getScheme() {
+        return new retrieveRecommendationVariant_resultTupleScheme();
+      }
+    }
+
+    private static class retrieveRecommendationVariant_resultTupleScheme extends TupleScheme<retrieveRecommendationVariant_result> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, retrieveRecommendationVariant_result struct) throws org.apache.thrift.TException {
+        TTupleProtocol oprot = (TTupleProtocol) prot;
+        BitSet optionals = new BitSet();
+        if (struct.isSetSuccess()) {
+          optionals.set(0);
+        }
+        if (struct.isSetP13nServiceException()) {
+          optionals.set(1);
+        }
+        oprot.writeBitSet(optionals, 2);
+        if (struct.isSetSuccess()) {
+          struct.success.write(oprot);
+        }
+        if (struct.isSetP13nServiceException()) {
+          struct.p13nServiceException.write(oprot);
+        }
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, retrieveRecommendationVariant_result struct) throws org.apache.thrift.TException {
+        TTupleProtocol iprot = (TTupleProtocol) prot;
+        BitSet incoming = iprot.readBitSet(2);
+        if (incoming.get(0)) {
+          struct.success = new RecommendationVariant();
+          struct.success.read(iprot);
+          struct.setSuccessIsSet(true);
+        }
+        if (incoming.get(1)) {
+          struct.p13nServiceException = new P13nServiceException();
+          struct.p13nServiceException.read(iprot);
+          struct.setP13nServiceExceptionIsSet(true);
+        }
+      }
+    }
+
+  }
+
+  public static class persistChoice_args implements org.apache.thrift.TBase<persistChoice_args, persistChoice_args._Fields>, java.io.Serializable, Cloneable, Comparable<persistChoice_args>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("persistChoice_args");
+
+    private static final org.apache.thrift.protocol.TField CHOICE_FIELD_DESC = new org.apache.thrift.protocol.TField("choice", org.apache.thrift.protocol.TType.STRUCT, (short)-1);
+
+    private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
+    static {
+      schemes.put(StandardScheme.class, new persistChoice_argsStandardSchemeFactory());
+      schemes.put(TupleScheme.class, new persistChoice_argsTupleSchemeFactory());
+    }
+
+    public Choice choice; // required
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+      CHOICE((short)-1, "choice");
+
+      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+
+      static {
+        for (_Fields field : EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case -1: // CHOICE
+            return CHOICE;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final String _fieldName;
+
+      _Fields(short thriftId, String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.CHOICE, new org.apache.thrift.meta_data.FieldMetaData("choice", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, Choice.class)));
+      metaDataMap = Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(persistChoice_args.class, metaDataMap);
+    }
+
+    public persistChoice_args() {
+    }
+
+    public persistChoice_args(
+      Choice choice)
+    {
+      this();
+      this.choice = choice;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public persistChoice_args(persistChoice_args other) {
+      if (other.isSetChoice()) {
+        this.choice = new Choice(other.choice);
+      }
+    }
+
+    public persistChoice_args deepCopy() {
+      return new persistChoice_args(this);
+    }
+
+    @Override
+    public void clear() {
+      this.choice = null;
+    }
+
+    public Choice getChoice() {
+      return this.choice;
+    }
+
+    public persistChoice_args setChoice(Choice choice) {
+      this.choice = choice;
+      return this;
+    }
+
+    public void unsetChoice() {
+      this.choice = null;
+    }
+
+    /** Returns true if field choice is set (has been assigned a value) and false otherwise */
+    public boolean isSetChoice() {
+      return this.choice != null;
+    }
+
+    public void setChoiceIsSet(boolean value) {
+      if (!value) {
+        this.choice = null;
+      }
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+      switch (field) {
+      case CHOICE:
+        if (value == null) {
+          unsetChoice();
+        } else {
+          setChoice((Choice)value);
+        }
+        break;
+
+      }
+    }
+
+    public Object getFieldValue(_Fields field) {
+      switch (field) {
+      case CHOICE:
+        return getChoice();
+
+      }
+      throw new IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new IllegalArgumentException();
+      }
+
+      switch (field) {
+      case CHOICE:
+        return isSetChoice();
+      }
+      throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof persistChoice_args)
+        return this.equals((persistChoice_args)that);
+      return false;
+    }
+
+    public boolean equals(persistChoice_args that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_choice = true && this.isSetChoice();
+      boolean that_present_choice = true && that.isSetChoice();
+      if (this_present_choice || that_present_choice) {
+        if (!(this_present_choice && that_present_choice))
+          return false;
+        if (!this.choice.equals(that.choice))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    @Override
+    public int compareTo(persistChoice_args other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      lastComparison = Boolean.valueOf(isSetChoice()).compareTo(other.isSetChoice());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetChoice()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.choice, other.choice);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
+    }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("persistChoice_args(");
+      boolean first = true;
+
+      sb.append("choice:");
+      if (this.choice == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.choice);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+      if (choice != null) {
+        choice.validate();
+      }
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+      try {
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class persistChoice_argsStandardSchemeFactory implements SchemeFactory {
+      public persistChoice_argsStandardScheme getScheme() {
+        return new persistChoice_argsStandardScheme();
+      }
+    }
+
+    private static class persistChoice_argsStandardScheme extends StandardScheme<persistChoice_args> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, persistChoice_args struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            case -1: // CHOICE
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.choice = new Choice();
+                struct.choice.read(iprot);
+                struct.setChoiceIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, persistChoice_args struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        if (struct.choice != null) {
+          oprot.writeFieldBegin(CHOICE_FIELD_DESC);
+          struct.choice.write(oprot);
+          oprot.writeFieldEnd();
+        }
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class persistChoice_argsTupleSchemeFactory implements SchemeFactory {
+      public persistChoice_argsTupleScheme getScheme() {
+        return new persistChoice_argsTupleScheme();
+      }
+    }
+
+    private static class persistChoice_argsTupleScheme extends TupleScheme<persistChoice_args> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, persistChoice_args struct) throws org.apache.thrift.TException {
+        TTupleProtocol oprot = (TTupleProtocol) prot;
+        BitSet optionals = new BitSet();
+        if (struct.isSetChoice()) {
+          optionals.set(0);
+        }
+        oprot.writeBitSet(optionals, 1);
+        if (struct.isSetChoice()) {
+          struct.choice.write(oprot);
+        }
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, persistChoice_args struct) throws org.apache.thrift.TException {
+        TTupleProtocol iprot = (TTupleProtocol) prot;
+        BitSet incoming = iprot.readBitSet(1);
+        if (incoming.get(0)) {
+          struct.choice = new Choice();
+          struct.choice.read(iprot);
+          struct.setChoiceIsSet(true);
+        }
+      }
+    }
+
+  }
+
+  public static class persistChoice_result implements org.apache.thrift.TBase<persistChoice_result, persistChoice_result._Fields>, java.io.Serializable, Cloneable, Comparable<persistChoice_result>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("persistChoice_result");
+
+    private static final org.apache.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.thrift.protocol.TField("success", org.apache.thrift.protocol.TType.STRING, (short)0);
+    private static final org.apache.thrift.protocol.TField P13N_SERVICE_EXCEPTION_FIELD_DESC = new org.apache.thrift.protocol.TField("p13nServiceException", org.apache.thrift.protocol.TType.STRUCT, (short)1);
+
+    private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
+    static {
+      schemes.put(StandardScheme.class, new persistChoice_resultStandardSchemeFactory());
+      schemes.put(TupleScheme.class, new persistChoice_resultTupleSchemeFactory());
+    }
+
+    public String success; // required
+    public P13nServiceException p13nServiceException; // required
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+      SUCCESS((short)0, "success"),
+      P13N_SERVICE_EXCEPTION((short)1, "p13nServiceException");
+
+      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+
+      static {
+        for (_Fields field : EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 0: // SUCCESS
+            return SUCCESS;
+          case 1: // P13N_SERVICE_EXCEPTION
+            return P13N_SERVICE_EXCEPTION;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final String _fieldName;
+
+      _Fields(short thriftId, String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.SUCCESS, new org.apache.thrift.meta_data.FieldMetaData("success", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+      tmpMap.put(_Fields.P13N_SERVICE_EXCEPTION, new org.apache.thrift.meta_data.FieldMetaData("p13nServiceException", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRUCT)));
+      metaDataMap = Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(persistChoice_result.class, metaDataMap);
+    }
+
+    public persistChoice_result() {
+    }
+
+    public persistChoice_result(
+      String success,
+      P13nServiceException p13nServiceException)
+    {
+      this();
+      this.success = success;
+      this.p13nServiceException = p13nServiceException;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public persistChoice_result(persistChoice_result other) {
+      if (other.isSetSuccess()) {
+        this.success = other.success;
+      }
+      if (other.isSetP13nServiceException()) {
+        this.p13nServiceException = new P13nServiceException(other.p13nServiceException);
+      }
+    }
+
+    public persistChoice_result deepCopy() {
+      return new persistChoice_result(this);
+    }
+
+    @Override
+    public void clear() {
+      this.success = null;
+      this.p13nServiceException = null;
+    }
+
+    public String getSuccess() {
+      return this.success;
+    }
+
+    public persistChoice_result setSuccess(String success) {
+      this.success = success;
+      return this;
+    }
+
+    public void unsetSuccess() {
+      this.success = null;
+    }
+
+    /** Returns true if field success is set (has been assigned a value) and false otherwise */
+    public boolean isSetSuccess() {
+      return this.success != null;
+    }
+
+    public void setSuccessIsSet(boolean value) {
+      if (!value) {
+        this.success = null;
+      }
+    }
+
+    public P13nServiceException getP13nServiceException() {
+      return this.p13nServiceException;
+    }
+
+    public persistChoice_result setP13nServiceException(P13nServiceException p13nServiceException) {
+      this.p13nServiceException = p13nServiceException;
+      return this;
+    }
+
+    public void unsetP13nServiceException() {
+      this.p13nServiceException = null;
+    }
+
+    /** Returns true if field p13nServiceException is set (has been assigned a value) and false otherwise */
+    public boolean isSetP13nServiceException() {
+      return this.p13nServiceException != null;
+    }
+
+    public void setP13nServiceExceptionIsSet(boolean value) {
+      if (!value) {
+        this.p13nServiceException = null;
+      }
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+      switch (field) {
+      case SUCCESS:
+        if (value == null) {
+          unsetSuccess();
+        } else {
+          setSuccess((String)value);
+        }
+        break;
+
+      case P13N_SERVICE_EXCEPTION:
+        if (value == null) {
+          unsetP13nServiceException();
+        } else {
+          setP13nServiceException((P13nServiceException)value);
+        }
+        break;
+
+      }
+    }
+
+    public Object getFieldValue(_Fields field) {
+      switch (field) {
+      case SUCCESS:
+        return getSuccess();
+
+      case P13N_SERVICE_EXCEPTION:
+        return getP13nServiceException();
+
+      }
+      throw new IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new IllegalArgumentException();
+      }
+
+      switch (field) {
+      case SUCCESS:
+        return isSetSuccess();
+      case P13N_SERVICE_EXCEPTION:
+        return isSetP13nServiceException();
+      }
+      throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof persistChoice_result)
+        return this.equals((persistChoice_result)that);
+      return false;
+    }
+
+    public boolean equals(persistChoice_result that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_success = true && this.isSetSuccess();
+      boolean that_present_success = true && that.isSetSuccess();
+      if (this_present_success || that_present_success) {
+        if (!(this_present_success && that_present_success))
+          return false;
+        if (!this.success.equals(that.success))
+          return false;
+      }
+
+      boolean this_present_p13nServiceException = true && this.isSetP13nServiceException();
+      boolean that_present_p13nServiceException = true && that.isSetP13nServiceException();
+      if (this_present_p13nServiceException || that_present_p13nServiceException) {
+        if (!(this_present_p13nServiceException && that_present_p13nServiceException))
+          return false;
+        if (!this.p13nServiceException.equals(that.p13nServiceException))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    @Override
+    public int compareTo(persistChoice_result other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      lastComparison = Boolean.valueOf(isSetSuccess()).compareTo(other.isSetSuccess());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetSuccess()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.success, other.success);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      lastComparison = Boolean.valueOf(isSetP13nServiceException()).compareTo(other.isSetP13nServiceException());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetP13nServiceException()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.p13nServiceException, other.p13nServiceException);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
+      }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("persistChoice_result(");
+      boolean first = true;
+
+      sb.append("success:");
+      if (this.success == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.success);
+      }
+      first = false;
+      if (!first) sb.append(", ");
+      sb.append("p13nServiceException:");
+      if (this.p13nServiceException == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.p13nServiceException);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+      try {
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class persistChoice_resultStandardSchemeFactory implements SchemeFactory {
+      public persistChoice_resultStandardScheme getScheme() {
+        return new persistChoice_resultStandardScheme();
+      }
+    }
+
+    private static class persistChoice_resultStandardScheme extends StandardScheme<persistChoice_result> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, persistChoice_result struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            case 0: // SUCCESS
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+                struct.success = iprot.readString();
+                struct.setSuccessIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            case 1: // P13N_SERVICE_EXCEPTION
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.p13nServiceException = new P13nServiceException();
+                struct.p13nServiceException.read(iprot);
+                struct.setP13nServiceExceptionIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, persistChoice_result struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        if (struct.success != null) {
+          oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
+          oprot.writeString(struct.success);
+          oprot.writeFieldEnd();
+        }
+        if (struct.p13nServiceException != null) {
+          oprot.writeFieldBegin(P13N_SERVICE_EXCEPTION_FIELD_DESC);
+          struct.p13nServiceException.write(oprot);
+          oprot.writeFieldEnd();
+        }
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class persistChoice_resultTupleSchemeFactory implements SchemeFactory {
+      public persistChoice_resultTupleScheme getScheme() {
+        return new persistChoice_resultTupleScheme();
+      }
+    }
+
+    private static class persistChoice_resultTupleScheme extends TupleScheme<persistChoice_result> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, persistChoice_result struct) throws org.apache.thrift.TException {
+        TTupleProtocol oprot = (TTupleProtocol) prot;
+        BitSet optionals = new BitSet();
+        if (struct.isSetSuccess()) {
+          optionals.set(0);
+        }
+        if (struct.isSetP13nServiceException()) {
+          optionals.set(1);
+        }
+        oprot.writeBitSet(optionals, 2);
+        if (struct.isSetSuccess()) {
+          oprot.writeString(struct.success);
+        }
+        if (struct.isSetP13nServiceException()) {
+          struct.p13nServiceException.write(oprot);
+        }
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, persistChoice_result struct) throws org.apache.thrift.TException {
+        TTupleProtocol iprot = (TTupleProtocol) prot;
+        BitSet incoming = iprot.readBitSet(2);
+        if (incoming.get(0)) {
+          struct.success = iprot.readString();
+          struct.setSuccessIsSet(true);
+        }
+        if (incoming.get(1)) {
+          struct.p13nServiceException = new P13nServiceException();
+          struct.p13nServiceException.read(iprot);
+          struct.setP13nServiceExceptionIsSet(true);
+        }
+      }
+    }
+
+  }
+
+  public static class persistScenario_args implements org.apache.thrift.TBase<persistScenario_args, persistScenario_args._Fields>, java.io.Serializable, Cloneable, Comparable<persistScenario_args>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("persistScenario_args");
+
+    private static final org.apache.thrift.protocol.TField SCENARIO_FIELD_DESC = new org.apache.thrift.protocol.TField("scenario", org.apache.thrift.protocol.TType.STRUCT, (short)-1);
+
+    private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
+    static {
+      schemes.put(StandardScheme.class, new persistScenario_argsStandardSchemeFactory());
+      schemes.put(TupleScheme.class, new persistScenario_argsTupleSchemeFactory());
+    }
+
+    public Scenario scenario; // required
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+      SCENARIO((short)-1, "scenario");
+
+      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+
+      static {
+        for (_Fields field : EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case -1: // SCENARIO
+            return SCENARIO;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final String _fieldName;
+
+      _Fields(short thriftId, String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.SCENARIO, new org.apache.thrift.meta_data.FieldMetaData("scenario", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, Scenario.class)));
+      metaDataMap = Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(persistScenario_args.class, metaDataMap);
+    }
+
+    public persistScenario_args() {
+    }
+
+    public persistScenario_args(
+      Scenario scenario)
+    {
+      this();
+      this.scenario = scenario;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public persistScenario_args(persistScenario_args other) {
+      if (other.isSetScenario()) {
+        this.scenario = new Scenario(other.scenario);
+      }
+    }
+
+    public persistScenario_args deepCopy() {
+      return new persistScenario_args(this);
+    }
+
+    @Override
+    public void clear() {
+      this.scenario = null;
+    }
+
+    public Scenario getScenario() {
+      return this.scenario;
+    }
+
+    public persistScenario_args setScenario(Scenario scenario) {
+      this.scenario = scenario;
+      return this;
+    }
+
+    public void unsetScenario() {
+      this.scenario = null;
+    }
+
+    /** Returns true if field scenario is set (has been assigned a value) and false otherwise */
+    public boolean isSetScenario() {
+      return this.scenario != null;
+    }
+
+    public void setScenarioIsSet(boolean value) {
+      if (!value) {
+        this.scenario = null;
+      }
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+      switch (field) {
+      case SCENARIO:
+        if (value == null) {
+          unsetScenario();
+        } else {
+          setScenario((Scenario)value);
+        }
+        break;
+
+      }
+    }
+
+    public Object getFieldValue(_Fields field) {
+      switch (field) {
+      case SCENARIO:
+        return getScenario();
+
+      }
+      throw new IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new IllegalArgumentException();
+      }
+
+      switch (field) {
+      case SCENARIO:
+        return isSetScenario();
+      }
+      throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof persistScenario_args)
+        return this.equals((persistScenario_args)that);
+      return false;
+    }
+
+    public boolean equals(persistScenario_args that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_scenario = true && this.isSetScenario();
+      boolean that_present_scenario = true && that.isSetScenario();
+      if (this_present_scenario || that_present_scenario) {
+        if (!(this_present_scenario && that_present_scenario))
+          return false;
+        if (!this.scenario.equals(that.scenario))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    @Override
+    public int compareTo(persistScenario_args other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      lastComparison = Boolean.valueOf(isSetScenario()).compareTo(other.isSetScenario());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetScenario()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.scenario, other.scenario);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
+    }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("persistScenario_args(");
+      boolean first = true;
+
+      sb.append("scenario:");
+      if (this.scenario == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.scenario);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+      if (scenario != null) {
+        scenario.validate();
+      }
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+      try {
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class persistScenario_argsStandardSchemeFactory implements SchemeFactory {
+      public persistScenario_argsStandardScheme getScheme() {
+        return new persistScenario_argsStandardScheme();
+      }
+    }
+
+    private static class persistScenario_argsStandardScheme extends StandardScheme<persistScenario_args> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, persistScenario_args struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            case -1: // SCENARIO
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.scenario = new Scenario();
+                struct.scenario.read(iprot);
+                struct.setScenarioIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, persistScenario_args struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        if (struct.scenario != null) {
+          oprot.writeFieldBegin(SCENARIO_FIELD_DESC);
+          struct.scenario.write(oprot);
+          oprot.writeFieldEnd();
+        }
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class persistScenario_argsTupleSchemeFactory implements SchemeFactory {
+      public persistScenario_argsTupleScheme getScheme() {
+        return new persistScenario_argsTupleScheme();
+      }
+    }
+
+    private static class persistScenario_argsTupleScheme extends TupleScheme<persistScenario_args> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, persistScenario_args struct) throws org.apache.thrift.TException {
+        TTupleProtocol oprot = (TTupleProtocol) prot;
+        BitSet optionals = new BitSet();
+        if (struct.isSetScenario()) {
+          optionals.set(0);
+        }
+        oprot.writeBitSet(optionals, 1);
+        if (struct.isSetScenario()) {
+          struct.scenario.write(oprot);
+        }
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, persistScenario_args struct) throws org.apache.thrift.TException {
+        TTupleProtocol iprot = (TTupleProtocol) prot;
+        BitSet incoming = iprot.readBitSet(1);
+        if (incoming.get(0)) {
+          struct.scenario = new Scenario();
+          struct.scenario.read(iprot);
+          struct.setScenarioIsSet(true);
+        }
+      }
+    }
+
+  }
+
+  public static class persistScenario_result implements org.apache.thrift.TBase<persistScenario_result, persistScenario_result._Fields>, java.io.Serializable, Cloneable, Comparable<persistScenario_result>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("persistScenario_result");
+
+    private static final org.apache.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.thrift.protocol.TField("success", org.apache.thrift.protocol.TType.STRING, (short)0);
+    private static final org.apache.thrift.protocol.TField P13N_SERVICE_EXCEPTION_FIELD_DESC = new org.apache.thrift.protocol.TField("p13nServiceException", org.apache.thrift.protocol.TType.STRUCT, (short)1);
+
+    private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
+    static {
+      schemes.put(StandardScheme.class, new persistScenario_resultStandardSchemeFactory());
+      schemes.put(TupleScheme.class, new persistScenario_resultTupleSchemeFactory());
+    }
+
+    public String success; // required
+    public P13nServiceException p13nServiceException; // required
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+      SUCCESS((short)0, "success"),
+      P13N_SERVICE_EXCEPTION((short)1, "p13nServiceException");
+
+      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+
+      static {
+        for (_Fields field : EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 0: // SUCCESS
+            return SUCCESS;
+          case 1: // P13N_SERVICE_EXCEPTION
+            return P13N_SERVICE_EXCEPTION;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final String _fieldName;
+
+      _Fields(short thriftId, String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.SUCCESS, new org.apache.thrift.meta_data.FieldMetaData("success", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+      tmpMap.put(_Fields.P13N_SERVICE_EXCEPTION, new org.apache.thrift.meta_data.FieldMetaData("p13nServiceException", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRUCT)));
+      metaDataMap = Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(persistScenario_result.class, metaDataMap);
+    }
+
+    public persistScenario_result() {
+    }
+
+    public persistScenario_result(
+      String success,
+      P13nServiceException p13nServiceException)
+    {
+      this();
+      this.success = success;
+      this.p13nServiceException = p13nServiceException;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public persistScenario_result(persistScenario_result other) {
+      if (other.isSetSuccess()) {
+        this.success = other.success;
+      }
+      if (other.isSetP13nServiceException()) {
+        this.p13nServiceException = new P13nServiceException(other.p13nServiceException);
+      }
+    }
+
+    public persistScenario_result deepCopy() {
+      return new persistScenario_result(this);
+    }
+
+    @Override
+    public void clear() {
+      this.success = null;
+      this.p13nServiceException = null;
+    }
+
+    public String getSuccess() {
+      return this.success;
+    }
+
+    public persistScenario_result setSuccess(String success) {
+      this.success = success;
+      return this;
+    }
+
+    public void unsetSuccess() {
+      this.success = null;
+    }
+
+    /** Returns true if field success is set (has been assigned a value) and false otherwise */
+    public boolean isSetSuccess() {
+      return this.success != null;
+    }
+
+    public void setSuccessIsSet(boolean value) {
+      if (!value) {
+        this.success = null;
+      }
+    }
+
+    public P13nServiceException getP13nServiceException() {
+      return this.p13nServiceException;
+    }
+
+    public persistScenario_result setP13nServiceException(P13nServiceException p13nServiceException) {
+      this.p13nServiceException = p13nServiceException;
+      return this;
+    }
+
+    public void unsetP13nServiceException() {
+      this.p13nServiceException = null;
+    }
+
+    /** Returns true if field p13nServiceException is set (has been assigned a value) and false otherwise */
+    public boolean isSetP13nServiceException() {
+      return this.p13nServiceException != null;
+    }
+
+    public void setP13nServiceExceptionIsSet(boolean value) {
+      if (!value) {
+        this.p13nServiceException = null;
+      }
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+      switch (field) {
+      case SUCCESS:
+        if (value == null) {
+          unsetSuccess();
+        } else {
+          setSuccess((String)value);
+        }
+        break;
+
+      case P13N_SERVICE_EXCEPTION:
+        if (value == null) {
+          unsetP13nServiceException();
+        } else {
+          setP13nServiceException((P13nServiceException)value);
+        }
+        break;
+
+      }
+    }
+
+    public Object getFieldValue(_Fields field) {
+      switch (field) {
+      case SUCCESS:
+        return getSuccess();
+
+      case P13N_SERVICE_EXCEPTION:
+        return getP13nServiceException();
+
+      }
+      throw new IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new IllegalArgumentException();
+      }
+
+      switch (field) {
+      case SUCCESS:
+        return isSetSuccess();
+      case P13N_SERVICE_EXCEPTION:
+        return isSetP13nServiceException();
+      }
+      throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof persistScenario_result)
+        return this.equals((persistScenario_result)that);
+      return false;
+    }
+
+    public boolean equals(persistScenario_result that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_success = true && this.isSetSuccess();
+      boolean that_present_success = true && that.isSetSuccess();
+      if (this_present_success || that_present_success) {
+        if (!(this_present_success && that_present_success))
+          return false;
+        if (!this.success.equals(that.success))
+          return false;
+      }
+
+      boolean this_present_p13nServiceException = true && this.isSetP13nServiceException();
+      boolean that_present_p13nServiceException = true && that.isSetP13nServiceException();
+      if (this_present_p13nServiceException || that_present_p13nServiceException) {
+        if (!(this_present_p13nServiceException && that_present_p13nServiceException))
+          return false;
+        if (!this.p13nServiceException.equals(that.p13nServiceException))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    @Override
+    public int compareTo(persistScenario_result other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      lastComparison = Boolean.valueOf(isSetSuccess()).compareTo(other.isSetSuccess());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetSuccess()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.success, other.success);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      lastComparison = Boolean.valueOf(isSetP13nServiceException()).compareTo(other.isSetP13nServiceException());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetP13nServiceException()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.p13nServiceException, other.p13nServiceException);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
+      }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("persistScenario_result(");
+      boolean first = true;
+
+      sb.append("success:");
+      if (this.success == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.success);
+      }
+      first = false;
+      if (!first) sb.append(", ");
+      sb.append("p13nServiceException:");
+      if (this.p13nServiceException == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.p13nServiceException);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+      try {
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class persistScenario_resultStandardSchemeFactory implements SchemeFactory {
+      public persistScenario_resultStandardScheme getScheme() {
+        return new persistScenario_resultStandardScheme();
+      }
+    }
+
+    private static class persistScenario_resultStandardScheme extends StandardScheme<persistScenario_result> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, persistScenario_result struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            case 0: // SUCCESS
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+                struct.success = iprot.readString();
+                struct.setSuccessIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            case 1: // P13N_SERVICE_EXCEPTION
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.p13nServiceException = new P13nServiceException();
+                struct.p13nServiceException.read(iprot);
+                struct.setP13nServiceExceptionIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, persistScenario_result struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        if (struct.success != null) {
+          oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
+          oprot.writeString(struct.success);
+          oprot.writeFieldEnd();
+        }
+        if (struct.p13nServiceException != null) {
+          oprot.writeFieldBegin(P13N_SERVICE_EXCEPTION_FIELD_DESC);
+          struct.p13nServiceException.write(oprot);
+          oprot.writeFieldEnd();
+        }
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class persistScenario_resultTupleSchemeFactory implements SchemeFactory {
+      public persistScenario_resultTupleScheme getScheme() {
+        return new persistScenario_resultTupleScheme();
+      }
+    }
+
+    private static class persistScenario_resultTupleScheme extends TupleScheme<persistScenario_result> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, persistScenario_result struct) throws org.apache.thrift.TException {
+        TTupleProtocol oprot = (TTupleProtocol) prot;
+        BitSet optionals = new BitSet();
+        if (struct.isSetSuccess()) {
+          optionals.set(0);
+        }
+        if (struct.isSetP13nServiceException()) {
+          optionals.set(1);
+        }
+        oprot.writeBitSet(optionals, 2);
+        if (struct.isSetSuccess()) {
+          oprot.writeString(struct.success);
+        }
+        if (struct.isSetP13nServiceException()) {
+          struct.p13nServiceException.write(oprot);
+        }
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, persistScenario_result struct) throws org.apache.thrift.TException {
+        TTupleProtocol iprot = (TTupleProtocol) prot;
+        BitSet incoming = iprot.readBitSet(2);
+        if (incoming.get(0)) {
+          struct.success = iprot.readString();
+          struct.setSuccessIsSet(true);
+        }
+        if (incoming.get(1)) {
+          struct.p13nServiceException = new P13nServiceException();
+          struct.p13nServiceException.read(iprot);
+          struct.setP13nServiceExceptionIsSet(true);
+        }
+      }
+    }
+
+  }
+
+  public static class persistRecommendationVariant_args implements org.apache.thrift.TBase<persistRecommendationVariant_args, persistRecommendationVariant_args._Fields>, java.io.Serializable, Cloneable, Comparable<persistRecommendationVariant_args>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("persistRecommendationVariant_args");
+
+    private static final org.apache.thrift.protocol.TField RECOMMENDATION_VARIANT_FIELD_DESC = new org.apache.thrift.protocol.TField("recommendationVariant", org.apache.thrift.protocol.TType.STRUCT, (short)-1);
+
+    private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
+    static {
+      schemes.put(StandardScheme.class, new persistRecommendationVariant_argsStandardSchemeFactory());
+      schemes.put(TupleScheme.class, new persistRecommendationVariant_argsTupleSchemeFactory());
+    }
+
+    public RecommendationVariant recommendationVariant; // required
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+      RECOMMENDATION_VARIANT((short)-1, "recommendationVariant");
+
+      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+
+      static {
+        for (_Fields field : EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case -1: // RECOMMENDATION_VARIANT
+            return RECOMMENDATION_VARIANT;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final String _fieldName;
+
+      _Fields(short thriftId, String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.RECOMMENDATION_VARIANT, new org.apache.thrift.meta_data.FieldMetaData("recommendationVariant", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, RecommendationVariant.class)));
+      metaDataMap = Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(persistRecommendationVariant_args.class, metaDataMap);
+    }
+
+    public persistRecommendationVariant_args() {
+    }
+
+    public persistRecommendationVariant_args(
+      RecommendationVariant recommendationVariant)
+    {
+      this();
+      this.recommendationVariant = recommendationVariant;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public persistRecommendationVariant_args(persistRecommendationVariant_args other) {
+      if (other.isSetRecommendationVariant()) {
+        this.recommendationVariant = new RecommendationVariant(other.recommendationVariant);
+      }
+    }
+
+    public persistRecommendationVariant_args deepCopy() {
+      return new persistRecommendationVariant_args(this);
+    }
+
+    @Override
+    public void clear() {
+      this.recommendationVariant = null;
+    }
+
+    public RecommendationVariant getRecommendationVariant() {
+      return this.recommendationVariant;
+    }
+
+    public persistRecommendationVariant_args setRecommendationVariant(RecommendationVariant recommendationVariant) {
+      this.recommendationVariant = recommendationVariant;
+      return this;
+    }
+
+    public void unsetRecommendationVariant() {
+      this.recommendationVariant = null;
+    }
+
+    /** Returns true if field recommendationVariant is set (has been assigned a value) and false otherwise */
+    public boolean isSetRecommendationVariant() {
+      return this.recommendationVariant != null;
+    }
+
+    public void setRecommendationVariantIsSet(boolean value) {
+      if (!value) {
+        this.recommendationVariant = null;
+      }
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+      switch (field) {
+      case RECOMMENDATION_VARIANT:
+        if (value == null) {
+          unsetRecommendationVariant();
+        } else {
+          setRecommendationVariant((RecommendationVariant)value);
+        }
+        break;
+
+      }
+    }
+
+    public Object getFieldValue(_Fields field) {
+      switch (field) {
+      case RECOMMENDATION_VARIANT:
+        return getRecommendationVariant();
+
+      }
+      throw new IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new IllegalArgumentException();
+      }
+
+      switch (field) {
+      case RECOMMENDATION_VARIANT:
+        return isSetRecommendationVariant();
+      }
+      throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof persistRecommendationVariant_args)
+        return this.equals((persistRecommendationVariant_args)that);
+      return false;
+    }
+
+    public boolean equals(persistRecommendationVariant_args that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_recommendationVariant = true && this.isSetRecommendationVariant();
+      boolean that_present_recommendationVariant = true && that.isSetRecommendationVariant();
+      if (this_present_recommendationVariant || that_present_recommendationVariant) {
+        if (!(this_present_recommendationVariant && that_present_recommendationVariant))
+          return false;
+        if (!this.recommendationVariant.equals(that.recommendationVariant))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    @Override
+    public int compareTo(persistRecommendationVariant_args other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      lastComparison = Boolean.valueOf(isSetRecommendationVariant()).compareTo(other.isSetRecommendationVariant());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetRecommendationVariant()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.recommendationVariant, other.recommendationVariant);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
+    }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("persistRecommendationVariant_args(");
+      boolean first = true;
+
+      sb.append("recommendationVariant:");
+      if (this.recommendationVariant == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.recommendationVariant);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+      if (recommendationVariant != null) {
+        recommendationVariant.validate();
+      }
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+      try {
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class persistRecommendationVariant_argsStandardSchemeFactory implements SchemeFactory {
+      public persistRecommendationVariant_argsStandardScheme getScheme() {
+        return new persistRecommendationVariant_argsStandardScheme();
+      }
+    }
+
+    private static class persistRecommendationVariant_argsStandardScheme extends StandardScheme<persistRecommendationVariant_args> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, persistRecommendationVariant_args struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            case -1: // RECOMMENDATION_VARIANT
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.recommendationVariant = new RecommendationVariant();
+                struct.recommendationVariant.read(iprot);
+                struct.setRecommendationVariantIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, persistRecommendationVariant_args struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        if (struct.recommendationVariant != null) {
+          oprot.writeFieldBegin(RECOMMENDATION_VARIANT_FIELD_DESC);
+          struct.recommendationVariant.write(oprot);
+          oprot.writeFieldEnd();
+        }
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class persistRecommendationVariant_argsTupleSchemeFactory implements SchemeFactory {
+      public persistRecommendationVariant_argsTupleScheme getScheme() {
+        return new persistRecommendationVariant_argsTupleScheme();
+      }
+    }
+
+    private static class persistRecommendationVariant_argsTupleScheme extends TupleScheme<persistRecommendationVariant_args> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, persistRecommendationVariant_args struct) throws org.apache.thrift.TException {
+        TTupleProtocol oprot = (TTupleProtocol) prot;
+        BitSet optionals = new BitSet();
+        if (struct.isSetRecommendationVariant()) {
+          optionals.set(0);
+        }
+        oprot.writeBitSet(optionals, 1);
+        if (struct.isSetRecommendationVariant()) {
+          struct.recommendationVariant.write(oprot);
+        }
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, persistRecommendationVariant_args struct) throws org.apache.thrift.TException {
+        TTupleProtocol iprot = (TTupleProtocol) prot;
+        BitSet incoming = iprot.readBitSet(1);
+        if (incoming.get(0)) {
+          struct.recommendationVariant = new RecommendationVariant();
+          struct.recommendationVariant.read(iprot);
+          struct.setRecommendationVariantIsSet(true);
+        }
+      }
+    }
+
+  }
+
+  public static class persistRecommendationVariant_result implements org.apache.thrift.TBase<persistRecommendationVariant_result, persistRecommendationVariant_result._Fields>, java.io.Serializable, Cloneable, Comparable<persistRecommendationVariant_result>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("persistRecommendationVariant_result");
+
+    private static final org.apache.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.thrift.protocol.TField("success", org.apache.thrift.protocol.TType.STRING, (short)0);
+    private static final org.apache.thrift.protocol.TField P13N_SERVICE_EXCEPTION_FIELD_DESC = new org.apache.thrift.protocol.TField("p13nServiceException", org.apache.thrift.protocol.TType.STRUCT, (short)1);
+
+    private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
+    static {
+      schemes.put(StandardScheme.class, new persistRecommendationVariant_resultStandardSchemeFactory());
+      schemes.put(TupleScheme.class, new persistRecommendationVariant_resultTupleSchemeFactory());
+    }
+
+    public String success; // required
+    public P13nServiceException p13nServiceException; // required
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+      SUCCESS((short)0, "success"),
+      P13N_SERVICE_EXCEPTION((short)1, "p13nServiceException");
+
+      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+
+      static {
+        for (_Fields field : EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 0: // SUCCESS
+            return SUCCESS;
+          case 1: // P13N_SERVICE_EXCEPTION
+            return P13N_SERVICE_EXCEPTION;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final String _fieldName;
+
+      _Fields(short thriftId, String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.SUCCESS, new org.apache.thrift.meta_data.FieldMetaData("success", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+      tmpMap.put(_Fields.P13N_SERVICE_EXCEPTION, new org.apache.thrift.meta_data.FieldMetaData("p13nServiceException", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRUCT)));
+      metaDataMap = Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(persistRecommendationVariant_result.class, metaDataMap);
+    }
+
+    public persistRecommendationVariant_result() {
+    }
+
+    public persistRecommendationVariant_result(
+      String success,
+      P13nServiceException p13nServiceException)
+    {
+      this();
+      this.success = success;
+      this.p13nServiceException = p13nServiceException;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public persistRecommendationVariant_result(persistRecommendationVariant_result other) {
+      if (other.isSetSuccess()) {
+        this.success = other.success;
+      }
+      if (other.isSetP13nServiceException()) {
+        this.p13nServiceException = new P13nServiceException(other.p13nServiceException);
+      }
+    }
+
+    public persistRecommendationVariant_result deepCopy() {
+      return new persistRecommendationVariant_result(this);
+    }
+
+    @Override
+    public void clear() {
+      this.success = null;
+      this.p13nServiceException = null;
+    }
+
+    public String getSuccess() {
+      return this.success;
+    }
+
+    public persistRecommendationVariant_result setSuccess(String success) {
+      this.success = success;
+      return this;
+    }
+
+    public void unsetSuccess() {
+      this.success = null;
+    }
+
+    /** Returns true if field success is set (has been assigned a value) and false otherwise */
+    public boolean isSetSuccess() {
+      return this.success != null;
+    }
+
+    public void setSuccessIsSet(boolean value) {
+      if (!value) {
+        this.success = null;
+      }
+    }
+
+    public P13nServiceException getP13nServiceException() {
+      return this.p13nServiceException;
+    }
+
+    public persistRecommendationVariant_result setP13nServiceException(P13nServiceException p13nServiceException) {
+      this.p13nServiceException = p13nServiceException;
+      return this;
+    }
+
+    public void unsetP13nServiceException() {
+      this.p13nServiceException = null;
+    }
+
+    /** Returns true if field p13nServiceException is set (has been assigned a value) and false otherwise */
+    public boolean isSetP13nServiceException() {
+      return this.p13nServiceException != null;
+    }
+
+    public void setP13nServiceExceptionIsSet(boolean value) {
+      if (!value) {
+        this.p13nServiceException = null;
+      }
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+      switch (field) {
+      case SUCCESS:
+        if (value == null) {
+          unsetSuccess();
+        } else {
+          setSuccess((String)value);
+        }
+        break;
+
+      case P13N_SERVICE_EXCEPTION:
+        if (value == null) {
+          unsetP13nServiceException();
+        } else {
+          setP13nServiceException((P13nServiceException)value);
+        }
+        break;
+
+      }
+    }
+
+    public Object getFieldValue(_Fields field) {
+      switch (field) {
+      case SUCCESS:
+        return getSuccess();
+
+      case P13N_SERVICE_EXCEPTION:
+        return getP13nServiceException();
+
+      }
+      throw new IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new IllegalArgumentException();
+      }
+
+      switch (field) {
+      case SUCCESS:
+        return isSetSuccess();
+      case P13N_SERVICE_EXCEPTION:
+        return isSetP13nServiceException();
+      }
+      throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof persistRecommendationVariant_result)
+        return this.equals((persistRecommendationVariant_result)that);
+      return false;
+    }
+
+    public boolean equals(persistRecommendationVariant_result that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_success = true && this.isSetSuccess();
+      boolean that_present_success = true && that.isSetSuccess();
+      if (this_present_success || that_present_success) {
+        if (!(this_present_success && that_present_success))
+          return false;
+        if (!this.success.equals(that.success))
+          return false;
+      }
+
+      boolean this_present_p13nServiceException = true && this.isSetP13nServiceException();
+      boolean that_present_p13nServiceException = true && that.isSetP13nServiceException();
+      if (this_present_p13nServiceException || that_present_p13nServiceException) {
+        if (!(this_present_p13nServiceException && that_present_p13nServiceException))
+          return false;
+        if (!this.p13nServiceException.equals(that.p13nServiceException))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    @Override
+    public int compareTo(persistRecommendationVariant_result other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      lastComparison = Boolean.valueOf(isSetSuccess()).compareTo(other.isSetSuccess());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetSuccess()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.success, other.success);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      lastComparison = Boolean.valueOf(isSetP13nServiceException()).compareTo(other.isSetP13nServiceException());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetP13nServiceException()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.p13nServiceException, other.p13nServiceException);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
+      }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("persistRecommendationVariant_result(");
+      boolean first = true;
+
+      sb.append("success:");
+      if (this.success == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.success);
+      }
+      first = false;
+      if (!first) sb.append(", ");
+      sb.append("p13nServiceException:");
+      if (this.p13nServiceException == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.p13nServiceException);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+      try {
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class persistRecommendationVariant_resultStandardSchemeFactory implements SchemeFactory {
+      public persistRecommendationVariant_resultStandardScheme getScheme() {
+        return new persistRecommendationVariant_resultStandardScheme();
+      }
+    }
+
+    private static class persistRecommendationVariant_resultStandardScheme extends StandardScheme<persistRecommendationVariant_result> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, persistRecommendationVariant_result struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            case 0: // SUCCESS
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+                struct.success = iprot.readString();
+                struct.setSuccessIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            case 1: // P13N_SERVICE_EXCEPTION
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.p13nServiceException = new P13nServiceException();
+                struct.p13nServiceException.read(iprot);
+                struct.setP13nServiceExceptionIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, persistRecommendationVariant_result struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        if (struct.success != null) {
+          oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
+          oprot.writeString(struct.success);
+          oprot.writeFieldEnd();
+        }
+        if (struct.p13nServiceException != null) {
+          oprot.writeFieldBegin(P13N_SERVICE_EXCEPTION_FIELD_DESC);
+          struct.p13nServiceException.write(oprot);
+          oprot.writeFieldEnd();
+        }
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class persistRecommendationVariant_resultTupleSchemeFactory implements SchemeFactory {
+      public persistRecommendationVariant_resultTupleScheme getScheme() {
+        return new persistRecommendationVariant_resultTupleScheme();
+      }
+    }
+
+    private static class persistRecommendationVariant_resultTupleScheme extends TupleScheme<persistRecommendationVariant_result> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, persistRecommendationVariant_result struct) throws org.apache.thrift.TException {
+        TTupleProtocol oprot = (TTupleProtocol) prot;
+        BitSet optionals = new BitSet();
+        if (struct.isSetSuccess()) {
+          optionals.set(0);
+        }
+        if (struct.isSetP13nServiceException()) {
+          optionals.set(1);
+        }
+        oprot.writeBitSet(optionals, 2);
+        if (struct.isSetSuccess()) {
+          oprot.writeString(struct.success);
+        }
+        if (struct.isSetP13nServiceException()) {
+          struct.p13nServiceException.write(oprot);
+        }
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, persistRecommendationVariant_result struct) throws org.apache.thrift.TException {
         TTupleProtocol iprot = (TTupleProtocol) prot;
         BitSet incoming = iprot.readBitSet(2);
         if (incoming.get(0)) {

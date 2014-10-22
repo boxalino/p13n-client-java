@@ -32,22 +32,33 @@ import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class P13nServiceException extends TException implements org.apache.thrift.TBase<P13nServiceException, P13nServiceException._Fields>, java.io.Serializable, Cloneable, Comparable<P13nServiceException> {
-  private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("P13nServiceException");
+/**
+ * Server response for one ChoiceUpdateRequest
+ */
+public class ChoiceUpdateResponse implements org.apache.thrift.TBase<ChoiceUpdateResponse, ChoiceUpdateResponse._Fields>, java.io.Serializable, Cloneable, Comparable<ChoiceUpdateResponse> {
+  private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("ChoiceUpdateResponse");
 
-  private static final org.apache.thrift.protocol.TField MESSAGE_FIELD_DESC = new org.apache.thrift.protocol.TField("message", org.apache.thrift.protocol.TType.STRING, (short)1);
+  private static final org.apache.thrift.protocol.TField CHOICE_ID_FIELD_DESC = new org.apache.thrift.protocol.TField("choiceId", org.apache.thrift.protocol.TType.STRING, (short)11);
 
   private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
   static {
-    schemes.put(StandardScheme.class, new P13nServiceExceptionStandardSchemeFactory());
-    schemes.put(TupleScheme.class, new P13nServiceExceptionTupleSchemeFactory());
+    schemes.put(StandardScheme.class, new ChoiceUpdateResponseStandardSchemeFactory());
+    schemes.put(TupleScheme.class, new ChoiceUpdateResponseTupleSchemeFactory());
   }
 
-  public String message; // required
+  /**
+   * Identifier of the changed choice. If no id is given in corresponding
+   * ChoiceUpdateRequest, new choice (and new id) will be created and retuned.
+   */
+  public String choiceId; // required
 
   /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
   public enum _Fields implements org.apache.thrift.TFieldIdEnum {
-    MESSAGE((short)1, "message");
+    /**
+     * Identifier of the changed choice. If no id is given in corresponding
+     * ChoiceUpdateRequest, new choice (and new id) will be created and retuned.
+     */
+    CHOICE_ID((short)11, "choiceId");
 
     private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
@@ -62,8 +73,8 @@ public class P13nServiceException extends TException implements org.apache.thrif
      */
     public static _Fields findByThriftId(int fieldId) {
       switch(fieldId) {
-        case 1: // MESSAGE
-          return MESSAGE;
+        case 11: // CHOICE_ID
+          return CHOICE_ID;
         default:
           return null;
       }
@@ -107,71 +118,79 @@ public class P13nServiceException extends TException implements org.apache.thrif
   public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
   static {
     Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
-    tmpMap.put(_Fields.MESSAGE, new org.apache.thrift.meta_data.FieldMetaData("message", org.apache.thrift.TFieldRequirementType.REQUIRED, 
+    tmpMap.put(_Fields.CHOICE_ID, new org.apache.thrift.meta_data.FieldMetaData("choiceId", org.apache.thrift.TFieldRequirementType.DEFAULT, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
     metaDataMap = Collections.unmodifiableMap(tmpMap);
-    org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(P13nServiceException.class, metaDataMap);
+    org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(ChoiceUpdateResponse.class, metaDataMap);
   }
 
-  public P13nServiceException() {
+  public ChoiceUpdateResponse() {
   }
 
-  public P13nServiceException(
-    String message)
+  public ChoiceUpdateResponse(
+    String choiceId)
   {
     this();
-    this.message = message;
+    this.choiceId = choiceId;
   }
 
   /**
    * Performs a deep copy on <i>other</i>.
    */
-  public P13nServiceException(P13nServiceException other) {
-    if (other.isSetMessage()) {
-      this.message = other.message;
+  public ChoiceUpdateResponse(ChoiceUpdateResponse other) {
+    if (other.isSetChoiceId()) {
+      this.choiceId = other.choiceId;
     }
   }
 
-  public P13nServiceException deepCopy() {
-    return new P13nServiceException(this);
+  public ChoiceUpdateResponse deepCopy() {
+    return new ChoiceUpdateResponse(this);
   }
 
   @Override
   public void clear() {
-    this.message = null;
+    this.choiceId = null;
   }
 
-  public String getMessage() {
-    return this.message;
+  /**
+   * Identifier of the changed choice. If no id is given in corresponding
+   * ChoiceUpdateRequest, new choice (and new id) will be created and retuned.
+   */
+  public String getChoiceId() {
+    return this.choiceId;
   }
 
-  public P13nServiceException setMessage(String message) {
-    this.message = message;
+  /**
+   * Identifier of the changed choice. If no id is given in corresponding
+   * ChoiceUpdateRequest, new choice (and new id) will be created and retuned.
+   */
+  public ChoiceUpdateResponse setChoiceId(String choiceId) {
+    this.choiceId = choiceId;
     return this;
   }
 
-  public void unsetMessage() {
-    this.message = null;
+  public void unsetChoiceId() {
+    this.choiceId = null;
   }
 
-  /** Returns true if field message is set (has been assigned a value) and false otherwise */
-  public boolean isSetMessage() {
-    return this.message != null;
+  /** Returns true if field choiceId is set (has been assigned a value) and false otherwise */
+  public boolean isSetChoiceId() {
+    return this.choiceId != null;
   }
 
-  public void setMessageIsSet(boolean value) {
+  public void setChoiceIdIsSet(boolean value) {
     if (!value) {
-      this.message = null;
+      this.choiceId = null;
     }
   }
 
   public void setFieldValue(_Fields field, Object value) {
     switch (field) {
-    case MESSAGE:
+    case CHOICE_ID:
       if (value == null) {
-        unsetMessage();
+        unsetChoiceId();
       } else {
-        setMessage((String)value);
+        setChoiceId((String)value);
       }
       break;
 
@@ -180,8 +199,8 @@ public class P13nServiceException extends TException implements org.apache.thrif
 
   public Object getFieldValue(_Fields field) {
     switch (field) {
-    case MESSAGE:
-      return getMessage();
+    case CHOICE_ID:
+      return getChoiceId();
 
     }
     throw new IllegalStateException();
@@ -194,8 +213,8 @@ public class P13nServiceException extends TException implements org.apache.thrif
     }
 
     switch (field) {
-    case MESSAGE:
-      return isSetMessage();
+    case CHOICE_ID:
+      return isSetChoiceId();
     }
     throw new IllegalStateException();
   }
@@ -204,21 +223,21 @@ public class P13nServiceException extends TException implements org.apache.thrif
   public boolean equals(Object that) {
     if (that == null)
       return false;
-    if (that instanceof P13nServiceException)
-      return this.equals((P13nServiceException)that);
+    if (that instanceof ChoiceUpdateResponse)
+      return this.equals((ChoiceUpdateResponse)that);
     return false;
   }
 
-  public boolean equals(P13nServiceException that) {
+  public boolean equals(ChoiceUpdateResponse that) {
     if (that == null)
       return false;
 
-    boolean this_present_message = true && this.isSetMessage();
-    boolean that_present_message = true && that.isSetMessage();
-    if (this_present_message || that_present_message) {
-      if (!(this_present_message && that_present_message))
+    boolean this_present_choiceId = true && this.isSetChoiceId();
+    boolean that_present_choiceId = true && that.isSetChoiceId();
+    if (this_present_choiceId || that_present_choiceId) {
+      if (!(this_present_choiceId && that_present_choiceId))
         return false;
-      if (!this.message.equals(that.message))
+      if (!this.choiceId.equals(that.choiceId))
         return false;
     }
 
@@ -231,19 +250,19 @@ public class P13nServiceException extends TException implements org.apache.thrif
   }
 
   @Override
-  public int compareTo(P13nServiceException other) {
+  public int compareTo(ChoiceUpdateResponse other) {
     if (!getClass().equals(other.getClass())) {
       return getClass().getName().compareTo(other.getClass().getName());
     }
 
     int lastComparison = 0;
 
-    lastComparison = Boolean.valueOf(isSetMessage()).compareTo(other.isSetMessage());
+    lastComparison = Boolean.valueOf(isSetChoiceId()).compareTo(other.isSetChoiceId());
     if (lastComparison != 0) {
       return lastComparison;
     }
-    if (isSetMessage()) {
-      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.message, other.message);
+    if (isSetChoiceId()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.choiceId, other.choiceId);
       if (lastComparison != 0) {
         return lastComparison;
       }
@@ -265,14 +284,14 @@ public class P13nServiceException extends TException implements org.apache.thrif
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder("P13nServiceException(");
+    StringBuilder sb = new StringBuilder("ChoiceUpdateResponse(");
     boolean first = true;
 
-    sb.append("message:");
-    if (this.message == null) {
+    sb.append("choiceId:");
+    if (this.choiceId == null) {
       sb.append("null");
     } else {
-      sb.append(this.message);
+      sb.append(this.choiceId);
     }
     first = false;
     sb.append(")");
@@ -281,9 +300,6 @@ public class P13nServiceException extends TException implements org.apache.thrif
 
   public void validate() throws org.apache.thrift.TException {
     // check for required fields
-    if (message == null) {
-      throw new org.apache.thrift.protocol.TProtocolException("Required field 'message' was not present! Struct: " + toString());
-    }
     // check for sub-struct validity
   }
 
@@ -303,15 +319,15 @@ public class P13nServiceException extends TException implements org.apache.thrif
     }
   }
 
-  private static class P13nServiceExceptionStandardSchemeFactory implements SchemeFactory {
-    public P13nServiceExceptionStandardScheme getScheme() {
-      return new P13nServiceExceptionStandardScheme();
+  private static class ChoiceUpdateResponseStandardSchemeFactory implements SchemeFactory {
+    public ChoiceUpdateResponseStandardScheme getScheme() {
+      return new ChoiceUpdateResponseStandardScheme();
     }
   }
 
-  private static class P13nServiceExceptionStandardScheme extends StandardScheme<P13nServiceException> {
+  private static class ChoiceUpdateResponseStandardScheme extends StandardScheme<ChoiceUpdateResponse> {
 
-    public void read(org.apache.thrift.protocol.TProtocol iprot, P13nServiceException struct) throws org.apache.thrift.TException {
+    public void read(org.apache.thrift.protocol.TProtocol iprot, ChoiceUpdateResponse struct) throws org.apache.thrift.TException {
       org.apache.thrift.protocol.TField schemeField;
       iprot.readStructBegin();
       while (true)
@@ -321,10 +337,10 @@ public class P13nServiceException extends TException implements org.apache.thrif
           break;
         }
         switch (schemeField.id) {
-          case 1: // MESSAGE
+          case 11: // CHOICE_ID
             if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-              struct.message = iprot.readString();
-              struct.setMessageIsSet(true);
+              struct.choiceId = iprot.readString();
+              struct.setChoiceIdIsSet(true);
             } else { 
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
@@ -340,13 +356,13 @@ public class P13nServiceException extends TException implements org.apache.thrif
       struct.validate();
     }
 
-    public void write(org.apache.thrift.protocol.TProtocol oprot, P13nServiceException struct) throws org.apache.thrift.TException {
+    public void write(org.apache.thrift.protocol.TProtocol oprot, ChoiceUpdateResponse struct) throws org.apache.thrift.TException {
       struct.validate();
 
       oprot.writeStructBegin(STRUCT_DESC);
-      if (struct.message != null) {
-        oprot.writeFieldBegin(MESSAGE_FIELD_DESC);
-        oprot.writeString(struct.message);
+      if (struct.choiceId != null) {
+        oprot.writeFieldBegin(CHOICE_ID_FIELD_DESC);
+        oprot.writeString(struct.choiceId);
         oprot.writeFieldEnd();
       }
       oprot.writeFieldStop();
@@ -355,25 +371,35 @@ public class P13nServiceException extends TException implements org.apache.thrif
 
   }
 
-  private static class P13nServiceExceptionTupleSchemeFactory implements SchemeFactory {
-    public P13nServiceExceptionTupleScheme getScheme() {
-      return new P13nServiceExceptionTupleScheme();
+  private static class ChoiceUpdateResponseTupleSchemeFactory implements SchemeFactory {
+    public ChoiceUpdateResponseTupleScheme getScheme() {
+      return new ChoiceUpdateResponseTupleScheme();
     }
   }
 
-  private static class P13nServiceExceptionTupleScheme extends TupleScheme<P13nServiceException> {
+  private static class ChoiceUpdateResponseTupleScheme extends TupleScheme<ChoiceUpdateResponse> {
 
     @Override
-    public void write(org.apache.thrift.protocol.TProtocol prot, P13nServiceException struct) throws org.apache.thrift.TException {
+    public void write(org.apache.thrift.protocol.TProtocol prot, ChoiceUpdateResponse struct) throws org.apache.thrift.TException {
       TTupleProtocol oprot = (TTupleProtocol) prot;
-      oprot.writeString(struct.message);
+      BitSet optionals = new BitSet();
+      if (struct.isSetChoiceId()) {
+        optionals.set(0);
+      }
+      oprot.writeBitSet(optionals, 1);
+      if (struct.isSetChoiceId()) {
+        oprot.writeString(struct.choiceId);
+      }
     }
 
     @Override
-    public void read(org.apache.thrift.protocol.TProtocol prot, P13nServiceException struct) throws org.apache.thrift.TException {
+    public void read(org.apache.thrift.protocol.TProtocol prot, ChoiceUpdateResponse struct) throws org.apache.thrift.TException {
       TTupleProtocol iprot = (TTupleProtocol) prot;
-      struct.message = iprot.readString();
-      struct.setMessageIsSet(true);
+      BitSet incoming = iprot.readBitSet(1);
+      if (incoming.get(0)) {
+        struct.choiceId = iprot.readString();
+        struct.setChoiceIdIsSet(true);
+      }
     }
   }
 
